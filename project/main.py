@@ -80,6 +80,7 @@ def cheapest_flights_menu(amount):
     print_flight_search_table(results)
 
 def unrealised_departures(): #TODO: Rework because of changed model, added pointer to Flight object
+                             #TODO: Check current date and time, compare to departures
     print("Unrealised departures: ")
     print("{:6}{:6}{:25}{:25}{:}".format("From", "To", "Departure date and time", "Arrival date and time", "Price"))
     for departure in departures:
@@ -291,8 +292,7 @@ def default_menu(command):
     if command == '2':
         exit()
     elif command == '3':
-        #unrealised_departures()
-        pass
+        unrealised_departures()
         #TODO: Overview of unrealised flights
     elif command == '4':
         flight_search_menu()
