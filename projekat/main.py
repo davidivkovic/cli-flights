@@ -1,12 +1,85 @@
 from utility import *
+from datetime import *
+from data_loader import *
+from model.Enums import Role
 
 users = load_users()
 flights = load_flights()
 departures = load_departures(flights)
 
+def date_input(text, day = ""):
 
-def unrealised_departures():
+    valid = False
+    date = ""
+    while date == "" and valid == False:
+        date = input(text)
+        if day == "":
+            valid = validate_datetime(date)
+        elif day == "Day":
+            valid = validate_integer(date)
+        if not valid:
+            date = ""
+    return date
 
+def flexible_schedule_menu():
+
+    search_criteria = create_search_dict()
+    airport_input_and_validation(search_criteria, "departure_airport", "Please enter a 3 character departure airport:")
+    airport_input_and_validation(search_criteria, "destination_airport", "Please enter a 3 character arrival airport:")
+
+    departure_date = date_input("Please enter departure date: ")
+    departure_days = date_input("Please enter numbers of days for the search window: ", "Day")
+
+    departure_date_object = datetime.strptime(departure_date, "%d-%m-%Y").date()
+
+    arrival_date = date_input("Please enter arrival date: ")
+    valid = False
+    while not valid:
+        arrival_date_object = datetime.strptime(arrival_date, "%d-%m-%Y").date()
+        if arrival_date_object < departure_date_object:
+            print("Cannot travel back in time. ")
+            arrival_date = date_input("Please enter arrival date: ")
+            continue
+        else:
+            valid = True
+
+    arrival_days = date_input("Please enter numbers of days for the search window: ", "Day")
+
+    departure_dates = []
+    arrival_dates = []
+
+    for i in range(-int(departure_days),int(departure_days) + 1):
+        date = datetime.strptime(departure_date, "%d-%m-%Y").date()               #convert string date to datetime object
+        departure_dates.append((date + timedelta(days = i)).strftime("%#d-%#m-%Y")) # adds and subtracts wanted number of
+                                                                                  # days from date, converts it into
+                                                                                  # european format and then appends
+                                                                                  # that date to an list
+    for i in range(-int(arrival_days),int(arrival_days) + 1):
+        date = datetime.strptime(arrival_date, "%d-%m-%Y").date()
+        arrival_dates.append((date + timedelta(days = i)).strftime("%#d-%#m-%Y"))
+
+    results = []
+    for departure_date in departure_dates:
+        search_criteria["departure_date"] = departure_date
+        for arrival_date in arrival_dates:
+            search_criteria["arrival_date"] = arrival_date
+            results.extend(flight_search(departures, search_criteria))
+
+    print_flight_search_table(results)
+
+def cheapest_flights_menu(amount):
+
+    search_criteria = create_search_dict()
+    print("Please enter a 3 character airport code. Example: BEG")
+    airport_input_and_validation(search_criteria, "departure_airport", "Please enter departure airport:")
+    airport_input_and_validation(search_criteria, "destination_airport", "Please enter destination airport:")
+    results = flight_search(departures, search_criteria)
+
+    results.sort(reverse = True, key = lambda departure: departure.flight.price )
+    results =  results[:amount]
+    print_flight_search_table(results)
+
+def unrealised_departures(): #TODO: Rework because of changed model, added pointer to Flight object
     print("Unrealised departures: ")
     print("{:6}{:6}{:25}{:25}{:}".format("From", "To", "Departure date and time", "Arrival date and time", "Price"))
     for departure in departures:
@@ -17,108 +90,146 @@ def unrealised_departures():
                               flight.departure_time, departure.arrival_date, flight.arrival_time, flight.price))
 
 def print_flight_search_menu():
-    print("    |1| Departure airport")
-    print("    |2| Destination airport")
-    print("    |3| Departure date")
-    print("    |4| Arrival date")
-    print("    |5| Departure time")
-    print("    |6| Arrival time")
-    print("    |7| Airline")
-    print("    |0| Return to previous menu")
+    print("|1| Departure airport")
+    print("|2| Destination airport")
+    print("|3| Departure date")
+    print("|4| Arrival date")
+    print("|5| Departure time")
+    print("|6| Arrival time")
+    print("|7| Airline")
+    print("|0| Return to previous menu")
 
+def validate_datetime(date_text, time = ""):
+    if time == "Time":
+        try:
+            datetime.strptime(date_text, "%H:%M")
+        except:
+            print("Incorrect time. Please enter a valid time.") #TODO: Unhardcode this. Move this function into utils, and the prints into main
+            return False
+        else:
+            return True
+
+    else:
+        try:
+            datetime.strptime(date_text, "%d-%m-%Y")
+        except:
+            print("Incorrect date. Please enter a valid date.")
+            return False
+        else:
+            return True
+
+def validate_integer(integer):
+    try:
+        int(integer)
+    except:
+        print("Incorrect number. Please enter a valid number")
+        return False
+    else:
+        return True
+
+def print_flight_search_table(results):
+    if len(results) > 0:
+        print("{:6}{:6}{:25}{:25}{:10}{:}".format("From", "To", "Departure date and time", "Arrival date and time",
+                                                  "Price", "Airline"))
+        for departure in results:
+            print("{:6}{:6}{:10} at {:11}{:10} at {:11}{:10}{:}".format(departure.flight.departure_airport,
+                                                                        departure.flight.destination_airport,
+                                                                        departure.departure_date,
+                                                                        departure.flight.departure_time,
+                                                                        departure.arrival_date,
+                                                                        departure.flight.arrival_time,
+                                                                        departure.flight.price + " €",
+                                                                        departure.flight.airline))
+    else:
+        print("No matching results found")
 
 def print_flight_search(search_criteria):
 
         results = flight_search(departures, search_criteria)
-        print("{:6}{:6}{:25}{:25}{:}".format("From", "To", "Departure date and time", "Arrival date and time", "Airline"))
-        for departure in results:
-            print("{:6}{:6}{:10} at {:11}{:1} at {:10} {:}" .format(departure.flight.departure_airport,
-                                                                     departure.flight.destination_airport,
-                                                                     departure.departure_date,
-                                                                     departure.flight.departure_time,
-                                                                     departure.arrival_date,
-                                                                     departure.flight.arrival_time,
-                                                                     departure.flight.airline))
+        print_flight_search_table(results)
 
-def flight_search_menu_multi():
+def datetime_input(search_criteria, key, text, time = ""):
+
+    valid = False
+    while search_criteria[key] == "" and valid == False:
+        search_criteria[key] = input(text)
+        valid = validate_datetime(search_criteria[key], time)
+        if not valid:
+            search_criteria[key] = ""
+    return search_criteria[key]
+
+def airport_input_and_validation(search_criteria, key, text):
+    valid = False
+    while search_criteria[key] == "" and valid == False:
+        search_criteria[key] = input(text).upper()
+        if len(search_criteria[key]) != 3:
+            search_criteria[key] = ""
+        else:
+            valid = True
+
+def flight_search_menu(mode = "Single"): #Other argument is "Multi"
     while True:
-        print("Search flights by multiple criteria, please select one or more separated by spaces. Example 1 3")
-        print_flight_search_menu()
+
+        choices = []
+        valid = True
+        if mode == "Single":
+            print("Please select a criteria to search flight by")
+            print_flight_search_menu()
+            choices = input()
+            if len(choices) > 1:
+                print("Invalid command. Please enter a valid.")
+                continue
+
+        elif mode == "Multi":
+            print("Search flights by multiple criteria, please select one or more separated by spaces. Example 1 2")
+            print_flight_search_menu()
+            commands = input()
+            choices = commands.split(" ")
+
         search_criteria = create_search_dict()
-        commands = input()
-        choices = commands.split(" ")
 
         valid = True
         for element in choices:
             if element not in ['0','1','2','3','4','5','6','7']:
-                print("Invalid commands. Please enter valid commands.")
+                print("Invalid command. Please enter valid commands.")
                 valid = False
                 break
+
         if not valid:
-            pass
+            continue
+
         if '0' in choices:
             return
+
         if '1' in  choices:
-            while search_criteria['departure_airport'] == "":
-                print("Please enter a capitalized 3 character airport code. Example: BEG")
-                search_criteria['departure_airport'] = input("Please enter departure airport:")
+            print("Please enter a 3 character airport code. Example: BEG")
+            airport_input_and_validation(search_criteria, "departure_airport", "Please enter departure airport:")
+
         if '2' in  choices:
-            while search_criteria['destination_airport'] == "":
-                print("Please enter a capitalized 3 character airport code. Example: CRL")
-                search_criteria['destination_airport'] = input("Please enter destination airport:")
+            print("Please enter a 3 character airport code. Example: CRL")
+            airport_input_and_validation(search_criteria, "destination_airport", "Please enter destination airport:")
+
         if '3' in choices:
-            while search_criteria['departure_date'] == "":
-                search_criteria['departure_date'] = input("Please enter departure date:")
+            print("Please enter a date in the format of d-m-yyyy")
+            datetime_input(search_criteria, "departure_date", "Please enter departure date:")
+
         if '4' in choices:
-            while search_criteria['arrival_date'] == "":
-                search_criteria['arrival_date'] = input("Please enter arrival date:")
+            print("Please enter a date in the format of d-m-yyyy")
+            datetime_input(search_criteria, "arrival_date", "Please enter arrival date:")
+
         if '5' in choices:
-            while search_criteria['departure_time'] == "":
-                search_criteria['departure_time'] = input("Please enter departure time:")
+            print("Please enter a time in the format of H:M")
+            datetime_input(search_criteria, "departure_time", "Please enter departure time:", "Time")
+
         if '6' in choices:
-            while search_criteria['arrival_time'] == "":
-                search_criteria['arrival_time'] = input("Please enter arrival time:")
+            print("Please enter a time in the format of H:M")
+            datetime_input(search_criteria, "arrival_time", "Please enter arrival time:", "Time")
+
         if '7' in choices:
-            while search_criteria['airline'] == "":
-                search_criteria['airline'] = input("Please enter airline:")
-
-        print_flight_search(search_criteria)
-
-def flight_search_menu_single():
-    while True:
-        print("Please select one option. Search flights by:")
-        print_flight_search_menu()
-        search_criteria = create_search_dict()
-        command = input()
-        if command == '0':
-            return
-        elif command == '1':
-            while search_criteria['departure_airport'] == "":
-                print("Please enter a capitalized 3 character airport code. Example: BEG")
-                search_criteria['departure_airport'] = input("Please enter departure airport:")
-        elif command == '2':
-            while search_criteria['destination_airport'] == "":
-                print("Please enter a capitalized 3 character airport code. Example: CRL")
-                search_criteria['destination_airport'] = input("Please enter destination airport:")
-        elif command == '3':
-            while search_criteria['departure_date'] == "":
-                search_criteria['departure_date'] = input("Please enter departure date:")
-        elif command == '4':
-            while search_criteria['arrival_date'] == "":
-                search_criteria['arrival_date'] = input("Please enter arrival date:")
-        elif command == '5':
-            while search_criteria['departure_time'] == "":
-                search_criteria['departure_time'] = input("Please enter departure time:")
-        elif command == '6':
-            while search_criteria['arrival_time'] == "":
-                search_criteria['arrival_time'] = input("Please enter arrival time:")
-        elif command == '7':
-            while search_criteria['airline'] == "":
-                search_criteria['airline'] = input("Please enter airline:")
-        else:
-            print("Unknown command, please enter a valid command")
-
-        print_flight_search(search_criteria)
+            while search_criteria["airline"] == "":
+                search_criteria["airline"] = input("Please enter airline:")
+        if valid:
+            print_flight_search(search_criteria)
 
 def authenticate_user(username, password):
 
@@ -127,7 +238,7 @@ def authenticate_user(username, password):
             return user.role
     return None
 
-def register_handler():
+def register_handler(): #TODO: User should not be able to enter file delimiter character "|" into any fields except for password. Store password at the end of each line
     username, password, first_name, last_name, phone, email = "", "", "", "", "", ""
     list_of_usernames = [user.username for user in users]
 
@@ -168,31 +279,30 @@ def save_user_to_file(user):
 
 
 def print_default_menu():
-    print("    |2| Exit application")
-    print("    |3| Overview of unrealised flights")
-    print("    |4| Flight search")
-    print("    |5| Multiple-criteria Flight search")
-    print("    |6| 10 Cheapest flights from departure to destination")
-    print("    |7| Flexible departure date")
+    print("|2| Exit application")
+    print("|3| Overview of unrealised flights")
+    print("|4| Flight search")
+    print("|5| Multiple-criteria Flight search")
+    print("|6| 10 Cheapest flights from departure to destination")
+    print("|7| Flexible departure date")
 
-def dafault_menu(command):
+def default_menu(command):
 
     if command == '2':
         exit()
     elif command == '3':
-        unrealised_departures()
+        #unrealised_departures()
+        pass
         #TODO: Overview of unrealised flights
     elif command == '4':
-        flight_search_menu_single()
+        flight_search_menu()
         #TODO: Flight search by one criteria
-        pass
     elif command == '5':
-        flight_search_menu_multi()
-        pass
+        flight_search_menu("Multi")
     elif command == '6':
-        pass
+        cheapest_flights_menu(10)
     elif command == '7':
-        pass
+        flexible_schedule_menu()
     else:
         return False
     return True
@@ -202,11 +312,11 @@ def customer_menu():
 
     valid = True
     while True:
-        print("    |1| Log out")
+        print("|1| Log out")
         print_default_menu()
-        print("    |8| Buy tickets")
-        print("    |9| Overview of unrealised tickets")
-        print("    |10| Check-in for your flight")
+        print("|8| Buy tickets")
+        print("|9| Overview of unrealised tickets")
+        print("|10| Check-in for your flight")
         command = input()
 
         if command == '1':  # LOGOUT
@@ -223,7 +333,7 @@ def customer_menu():
             # TODO: check-in
             pass
 
-        valid = dafault_menu(command)
+        valid = default_menu(command)
         if not valid:
             print("Unknown command, please enter a valid command")
 
@@ -232,13 +342,13 @@ def seller_menu():
     valid = True
     while True:
         print("Welcome, Seller")
-        print("    |1| Log out")
+        print("|1| Log out")
         print_default_menu()
-        print("    |8| Sell tickets")
-        print("    |9| Check-in a passenger for his flight")
-        print("    |10| Edit a ticket")
-        print("    |11| Delete a ticket")
-        print("    |12| Browse sold tickets")
+        print("|8| Sell tickets")
+        print("|9| Check-in a passenger for his flight")
+        print("|10| Edit a ticket")
+        print("|11| Delete a ticket")
+        print("|12| Browse sold tickets")
 
         command = input()
 
@@ -255,7 +365,7 @@ def seller_menu():
         elif command == '12':
             pass
 
-        valid = dafault_menu(command)
+        valid = default_menu(command)
         if not valid:
             print("Unknown command, please enter a valid command")
 
@@ -264,13 +374,13 @@ def manager_menu():
 
     print("Logged in as Manager")
     while True:
-        print("    |1| Log out")
+        print("|1| Log out")
         print_default_menu()
-        print("    |8| Browse sold tickets")
-        print("    |9| Register a new seller")
-        print("    |10| Create a new flight") #TODO: proverava se ispravnost unetih podataka
-        print("    |11| Edit flights") #TODO: Omoguciti izmenu samo zeljenih podataka
-        print("    |12| Confirm deletion of a ticket")
+        print("|8| Browse sold tickets")
+        print("|9| Register a new seller")
+        print("|10| Create a new flight") #TODO: proverava se ispravnost unetih podataka
+        print("|11| Edit flights") #TODO: Omoguciti izmenu samo zeljenih podataka
+        print("|12| Confirm deletion of a ticket")
 
         command = input()
         if command == '1':  # LOGOUT
@@ -286,7 +396,7 @@ def manager_menu():
         elif command == '12':
             pass
 
-        valid = dafault_menu(command)
+        valid = default_menu(command)
         if not valid:
             print("Unknown command, please enter a valid command")
 
@@ -295,9 +405,9 @@ def main():
 
     print("Welcome")
     while True:
-        print("    |1| Log in")
+        print("|1| Log in")
         print_default_menu()
-        print("    |8| Register as new user")
+        print("|8| Register as new user")
         command = input()
 
         if command == '1':
@@ -321,7 +431,7 @@ def main():
             print("Please enter your credentials: ")
             register_handler()
 
-        valid = dafault_menu(command)
+        valid = default_menu(command)
         if not valid and command != '1':
             print("Unknown command, please enter a valid command")
 
