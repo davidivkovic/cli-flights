@@ -2,6 +2,7 @@ from utility import *
 from datetime import *
 from data_loader import *
 from model.Enums import Role
+import re
 
 users = load_users()
 flights = load_flights()
@@ -239,31 +240,70 @@ def authenticate_user(username, password):
             return user.role
     return None
 
-def register_handler(): #TODO: User should not be able to enter file delimiter character "|" into any fields except for password. Store password at the end of each line
+def register_handler(): 
     username, password, first_name, last_name, phone, email = "", "", "", "", "", ""
     list_of_usernames = [user.username for user in users]
 
     print("Fields marked with an * are required")
     while username == "":
         username = input("Username*: ")
+        if '|' in username:
+            print("Username cannot contain the character \"|\"")
+
         if username in list_of_usernames:
             print("Username already taken, please enter a different username")
             username = ""
 
     while password == "":
         password = input("Password*: ")
+        if '|' in password:
+            print("Password cannot contain the character \"|\"")
+            password = ""
+
     while first_name == "":
         first_name = input("First name*: ")
+        if not first_name.isalpha():
+            print("Please enter only letters")
+            first_name = ""
+
     while last_name == "":
         last_name = input("Last name*: ")
+        if not last_name.isalpha():
+            print("Please enter only letters")
+
     while phone == "":
-        phone = input("Phone number*: ")
-    while email == "":
+       phone = input("Phone number*: ")
+
+    while email == "" :
         email = input("Email address*: ")
+        if  not re.match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",email):
+            print("Please enter a valid email address")
+            email = ""
+            continue
 
     passport_number = input("Passport number: ")
+    while passport_number != "":
+        if len(passport_number) != 9 or not passport_number.isnumeric():
+            print("Passport number can only contain digits and must be 9 digits long")
+            passport_number = input("Passport number: ")
+        else:
+            break
+
     citizenship = input("Citizenship: ")
+    while citizenship != "":
+        if not citizenship.isalpha():
+            print("Please enter only letters")
+            citizenship = input("Citizenship: ")
+        else:
+            break
+
     gender = input("Gender: ")
+    while gender != "":
+        if not gender.isalpha():
+            print("Please enter only letters")
+            gender = input("Citizenship: ")
+        else:
+            break
 
     register_user(username, password, first_name, last_name, phone, email, passport_number, citizenship, gender)
 
@@ -273,7 +313,7 @@ def register_user(username, password, first_name, last_name, phone, email, passp
     save_user_to_file(user)
 
 def save_user_to_file(user):
-    with open("customers","a") as f:
+    with open("data/customers","a") as f:
         line = "\n" + str(user.serialize())
         #print(line)
         f.write(line)
@@ -432,7 +472,7 @@ def main():
             register_handler()
 
         valid = default_menu(command)
-        if not valid and command != '1':
+        if not valid and command not in ['1','8']:
             print("Unknown command, please enter a valid command")
 
 if __name__ == "__main__":
