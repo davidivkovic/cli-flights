@@ -1,5 +1,5 @@
 class Airplane:
-    def __init__(self, name, rows, columns):
+    def __init__(self, code, name, rows_cols):
+        self.code = code
         self.name = name
-        self.rows = rows
-        self.columns = columns
+        self.rows_cols = rows_cols
