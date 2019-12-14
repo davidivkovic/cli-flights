@@ -11,7 +11,17 @@ def create_search_dict():
     search_criteria["airline"] = ""
     return search_criteria
 
-def flight_search(departures, search_criteria):
+
+def flight_search(flights, search_criteria):
+    candidates = flights[:]
+    for flight in candidates:
+        if search_criteria["departure_airport"] != "":
+            candidates[:] = [flight for flight in candidates if search_criteria["departure_airport"].lower() == flight.departure_airport.city.lower()]
+        if search_criteria["destination_airport"] !="":
+            candidates[:] = [flight for flight in candidates if search_criteria["destination_airport"].lower() == flight.destination_airport.city.lower()]
+    return candidates
+
+def departure_search(departures, search_criteria):
 
     candidates = departures[:]
     for departure in candidates:
