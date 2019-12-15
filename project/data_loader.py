@@ -69,7 +69,21 @@ def load_users():
     return users
 
 
-def load_flights(airports):
+def load_airplanes():
+    with open("data/airplanes") as f:
+        content = f.readlines()
+
+    airplanes = []
+    for line in content:
+        airplane_data = line.strip().split('|')
+        airplane = Airplane(airplane_data[0],  # code
+                            airplane_data[1],  # name
+                            airplane_data[2])  # rows_cols
+        airplanes.append(airplane)
+    return airplanes
+
+
+def load_flights(airports, airplanes):
     with open("data/flights") as f:
         content = f.readlines()
 
@@ -79,6 +93,7 @@ def load_flights(airports):
 
         departure_airport_pointer = [airport for airport in airports if airport.code == flight_data[1]][0]
         destination_airport_pointer = [airport for airport in airports if airport.code == flight_data[2]][0]
+        airplane_pointer = [airplane for airplane in airplanes if airplane.code == flight_data[8]][0]
 
         flight = Flight(flight_data[0],  # flight_number
                         departure_airport_pointer,  # departure airport
@@ -88,7 +103,7 @@ def load_flights(airports):
                         flight_data[5],  # overnight
                         flight_data[6],  # airline
                         flight_data[7],  # days
-                        flight_data[8],  # airplane_model
+                        airplane_pointer,  # airplane
                         flight_data[9])  # price
 
         flights.append(flight)
@@ -104,8 +119,7 @@ def load_departures(flights, airplanes):
         departure_data = line.strip().split('|')
 
         flight_pointer = [flight for flight in flights if flight.flight_number == departure_data[1]][0]
-        flight_rows_cols = \
-        [airplane.rows_cols for airplane in airplanes if airplane.code == flight_pointer.airplane_code][0]
+        flight_rows_cols = [airplane.rows_cols for airplane in airplanes if airplane.code == flight_pointer.airplane.code][0]
 
         flight_capacity = int(flight_rows_cols.strip().split('/')[0]) * int(flight_rows_cols.strip().split('/')[1])
 
@@ -136,20 +150,6 @@ def load_airports():
     return airports
 
 
-def load_airplanes():
-    with open("data/airplanes") as f:
-        content = f.readlines()
-
-    airplanes = []
-    for line in content:
-        airplane_data = line.strip().split('|')
-        airplane = Airplane(airplane_data[0],  # code
-                            airplane_data[1],  # name
-                            airplane_data[2])  # rows_cols
-        airplanes.append(airplane)
-    return airplanes
-
-
 def load_tickets(departures):
     with open("data/tickets") as f:
         content = f.readlines()
@@ -167,7 +167,14 @@ def load_tickets(departures):
                         ticket_data[4],  # contact_phone
                         ticket_data[5],  # contact_email
                         ticket_data[6],  # purchase_date
-                        ticket_data[7],  # delete
-                        ticket_data[8])  # sold_by
+                        ticket_data[7],  # seat
+                        ticket_data[8],  # delete
+                        ticket_data[9])  # sold_by
         tickets.append(ticket)
     return tickets
+
+
+def load_current_ticket_id():
+    with open("data/current_ticket_id") as f:
+        content = f.readlines()
+    return int(content[0])

@@ -3,19 +3,154 @@ from datetime import *
 from data_loader import *
 from model.Enums import Role
 from model.User import User
+import string
 import re
 
 users = load_users()
 airports = load_airports()
 airplanes = load_airplanes()
-flights = load_flights(airports)
+flights = load_flights(airports, airplanes)
 departures = load_departures(flights, airplanes)
 tickets = load_tickets(departures)
+current_ticket_id = load_current_ticket_id()
 current_user = None
-current_ticket_id = 0
+customer = ""
+self_purchase = False
+
+def choose_seat(current_ticket):
+    rows_cols = current_ticket.departure.flight.airplane.rows_cols
+    rows = int(rows_cols.split("/")[0])  #1,2,3,4...
+    cols = int(rows_cols.split("/")[1])  #1,2,3,4...
+    alphabet = string.ascii_uppercase
+    seating_table = [[0] * cols] * rows  #TODO: Fix this, only creates references to a single list, changes element in every list...
+    #each ticket hold a filed named seat
+    #upon creation of a ticket object the seat field is empty
+    #upon check in this field is assigned a value in the form of 1A
+    #to generate a table of available and taken seats for a departure we will extract the seat
+    #data from the tickets which contain the same departure id
+    for i in range(rows):
+        for j in range(cols):
+            seating_table[i][j] = alphabet[j]
 
 
-def validate_departure_id():
+    for ticket in tickets:
+        if ticket.departure.id == current_ticket.departure.id:
+            seat = ticket.seat
+            if seat != "":               #1A
+                row = int(seat[0])       # 1,2,3...
+                col = ord(seat[1]) - 64  # A -> 1, B -> 2...
+                seating_table[row-1][col-1] = "X"
+
+    print(seating_table)
+    #for i in range(rows):
+        #print(seating_table[i])
+
+
+
+def check_in():
+
+    global current_user
+
+    candidates = [] #contains only the user's tickets
+    for ticket in tickets:
+        if current_user.email == ticket.contact_email:
+            candidates.append(ticket)
+
+    while True:
+
+        print("Please enter a ticket ID")
+        ticket_id = input()
+
+        ticket_is_valid = False
+        for ticket in candidates:
+            if ticket_id.upper() == ticket.id:
+                ticket_is_valid = True
+                current_ticket = ticket #save the current ticket for use
+
+                departure_date_obj = datetime.strptime(ticket.departure.departure_date, "%d-%m-%Y").date()
+                departure_time_obj = datetime.strptime(ticket.departure.flight.departure_time, "%H:%M").time()
+                print(departure_date_obj, departure_time_obj)
+                departure_datetime_obj = datetime.combine(departure_date_obj, departure_time_obj)
+                check_in_datetime_obj = departure_datetime_obj - timedelta(hours = 48)
+                current_datetime_obj = datetime.now()
+
+                if current_datetime_obj >= check_in_datetime_obj:
+                    #collect missing data from the user - passport number, nationality and gender
+
+                    if current_user.passport_number == "":
+                        while True:
+                            print("Please enter your passport number.")
+                            passport_number = input()
+                            if passport_number.isnumeric() is True and len(passport_number) == 9:
+                                current_user.passport_number = passport_number
+                                break
+                            else:
+                                print("Invalid passport number. A valid number contains 9 digitis.")
+
+                    if current_user.citizenship == "":
+                        while True:
+                            print("Please etner your citizenship")
+                            citizenship = input()
+                            if citizenship.isalpha() is True:
+                                current_user.citizenship = citizenship
+                                break
+                            else:
+                                print("Citizenship can only contain letters.")
+
+                    if current_user.gender == "":
+                        while True:
+                            print("Please enter your gender (Male, Female, Other)")
+                            gender = input()
+                            if  gender.lower() == "male" or gender.lower() == "female" or gender.lower() == "other":
+                                current_user.gender = gender
+                                break
+                            else:
+                                print("Invalid gender.")
+
+                    choose_seat(ticket)
+                    #TODO: Continue from here
+
+                elif current_datetime_obj > departure_datetime_obj:
+                    print("Sorry, your flight has already departed.")
+                    return
+
+                else:
+                    print("Check is not allowed until 48 hours before the departure of a flight")
+                    print("You can check in at",  check_in_datetime_obj)
+                    return
+
+
+
+        if ticket_is_valid is False:
+            print("Invalid ticked ID")
+
+
+def check_in_menu():
+    while True:
+        print("You can check in 48 hours before your flight. Enter a ticket ID or search for it.")
+        print("|0| Return to previous menu")
+        print("|1| Enter ticket ID to check in")
+        print("|2| View your purchased tickets")
+        choice = input()
+        if choice == "0":
+            return
+        elif choice == "1":
+            check_in()
+        elif choice == "2":
+            unrealised_tickets()
+        else:
+            print("Invalid command.")
+    unrealised_tickets()
+
+def unrealised_tickets():
+    candidates = []
+    for ticket in tickets:
+        if current_user.email == ticket.contact_email:
+            candidates.append(ticket)
+    print_ticket(candidates, "Multi")
+
+
+def validate_departure_id(list=None):
     flight_id = ""
     valid = False
     result = None
@@ -24,11 +159,18 @@ def validate_departure_id():
         if flight_id == '0':
             return False
         if len(flight_id) == 4 and flight_id.isnumeric():
-            for departure in departures:
-                if flight_id == departure.id:
-                    result = departure
-                    valid = True
-                    break
+            if list is not None:
+                for departure in list:
+                    if flight_id == departure.id:
+                        result = departure
+                        valid = True
+                        break
+            else:
+                for departure in departures:
+                    if flight_id == departure.id:
+                        result = departure
+                        valid = True
+                        break
 
         if valid is False:
             print("Invalid flight ID")
@@ -43,24 +185,44 @@ def validate_departure_id():
     return result
 
 
-def print_ticket(ticket):
+def print_ticket(ticket, mode):
+    if mode == "Single":
+        print("{:12}{:14}{:16}{:16}{:22}{:22}{:24}{:20}{:30}{:20}".format("Ticket ID", "Departure ID", "From", "To",
+                                                                          "Departure date", "Arrival date",
+                                                                          "Ticket holder",
+                                                                          "Contact phone",
+                                                                          "Contact email", "Date of purchase"))
 
-    print("{:12}{:14}{:16}{:16}{:22}{:22}{:24}{:20}{:30}{:20}".format("Ticket ID", "Departure ID", "From", "To",
-                                                                      "Departure date", "Arrival date", "Ticket holder",
-                                                                      "Contact phone",
-                                                                      "Contact email", "Date of purchase"))
-
-    print("{:12}{:14}{:16}{:16}{:22}{:22}{:24}{:20}{:30}{:20}".format(ticket.id, ticket.departure.id,
-                                                                 ticket.departure.flight.departure_airport.city,
-                                                                 ticket.departure.flight.destination_airport.city,
-                                                                 ticket.departure.departure_date + " at " +
-                                                                 ticket.departure.flight.departure_time,
-                                                                 ticket.departure.arrival_date + " at " +
-                                                                 ticket.departure.flight.arrival_time,
-                                                                 ticket.first_name + " " + ticket.last_name,
-                                                                 ticket.contact_phone,
-                                                                 ticket.contact_email,
-                                                                 ticket.purchase_date))
+        print("{:12}{:14}{:16}{:16}{:22}{:22}{:24}{:20}{:30}{:20}".format(ticket.id, ticket.departure.id,
+                                                                          ticket.departure.flight.departure_airport.city,
+                                                                          ticket.departure.flight.destination_airport.city,
+                                                                          ticket.departure.departure_date + " at " +
+                                                                          ticket.departure.flight.departure_time,
+                                                                          ticket.departure.arrival_date + " at " +
+                                                                          ticket.departure.flight.arrival_time,
+                                                                          ticket.first_name + " " + ticket.last_name,
+                                                                          ticket.contact_phone,
+                                                                          ticket.contact_email,
+                                                                          ticket.purchase_date))
+    elif mode == "Multi":
+        tickets = ticket
+        print("{:12}{:14}{:16}{:16}{:22}{:22}{:24}{:20}{:30}{:20}".format("Ticket ID", "Departure ID", "From", "To",
+                                                                          "Departure date", "Arrival date",
+                                                                          "Ticket holder",
+                                                                          "Contact phone",
+                                                                          "Contact email", "Date of purchase"))
+        for ticket in tickets:
+            print("{:12}{:14}{:16}{:16}{:22}{:22}{:24}{:20}{:30}{:20}".format(ticket.id, ticket.departure.id,
+                                                                              ticket.departure.flight.departure_airport.city,
+                                                                              ticket.departure.flight.destination_airport.city,
+                                                                              ticket.departure.departure_date + " at " +
+                                                                              ticket.departure.flight.departure_time,
+                                                                              ticket.departure.arrival_date + " at " +
+                                                                              ticket.departure.flight.arrival_time,
+                                                                              ticket.first_name + " " + ticket.last_name,
+                                                                              ticket.contact_phone,
+                                                                              ticket.contact_email,
+                                                                              ticket.purchase_date))
 
 
 def purchase_ticket(departure, first_name="", last_name=""):
@@ -75,26 +237,26 @@ def purchase_ticket(departure, first_name="", last_name=""):
 
     if first_name == "" and last_name == "":
         ticket = Ticket(ticket_id, departure, current_user.first_name, current_user.last_name, current_user.phone,
-                        current_user.email, current_date_str, "No")
-
+                        current_user.email, current_date_str, "" ,"No")     # "" -> No seat assigned yet. "No" -> not q'd for deletion
     else:
         ticket = Ticket(ticket_id, departure, first_name, last_name, current_user.phone,
-                        current_user.email, current_date_str, "No")
+                        current_user.email, current_date_str, "", "No")
 
     tickets.append(ticket)
     departure.seats_taken += 1
     save_ticket_to_file(ticket)
     save_departures_to_file()
 
-    print("Purchase successful. Your ticket:")
-    print(ticket.serialize())
-
-
+    print("Purchase successful.")
+    print_ticket(ticket, "Single")
 
 
 def purchase_tickets_menu():
+    #This function is a mess, I am totally aware of that...
+    def holder_menu():
+        global customer
+        global self_purchase
 
-    def submenu_1():
         first_name, last_name = "", ""
         while True:
 
@@ -105,8 +267,7 @@ def purchase_tickets_menu():
 
             if command == "1":
                 customer = "Self"
-                return first_name, last_name
-                # TODO: Take data from the currently logged in user
+                break
 
             elif command == "2":
                 customer = "Other"
@@ -122,16 +283,139 @@ def purchase_tickets_menu():
                     last_name = input("Last name:\n")
                     if not last_name.isalpha():
                         print("Please enter only letters")
-
-                # TODO: Enter name and last name for the contact person, but take contact info from the logged in user
-                return first_name, last_name
-
+                break
 
             else:
-                print("Invalid command. Please enter a valid command.\n")
+                print("Invalid command. Please enter a valid command.")
+                continue
+
+        return first_name, last_name
+
+    def confirmation_menu(departure, first_name, last_name):
+        global customer
+        global self_purchase
+        while True:
+            global customer
+            global self_purchase
+
+            print("Confirm the purchase of this ticket")
+            print("|1| Confirm")
+            print("|2| Abort purchase")
+            confirmation = input()
+            if confirmation == "1":
+                if customer == "Self":
+                    self_purchase = True
+
+                customer_ticket = purchase_ticket(departure, first_name, last_name)  # generate new ticket
+                passenger_ticket_menu(departure)  # ask customer if he wants to buy a ticket for a passenger
+                connected_departures_menu(departure)  # ask customer if he wants to but a ticket for connected flights
+                return
+
+            elif confirmation == "2":
+                return
+            else:
+                print("Invalid command. Please enter a valid command.")
+
+    def passenger_ticket_menu(departure):
+        first_name, last_name = "", ""
+        while True:
+            print("Do you wish to purchase tickets for a passenger?")
+            print("|1| Yes")
+            print("|2| No")
+            # print("Do you wish to purchase tickets for flights connected to your flight?")
+            # print("|1| Yes")
+            # print("|2| No")
+            selection = input()
+            if selection == "1":
+
+                customer = "Other"
+                print("Please enter the first and last name of the person you are purchasing the ticket for")
+
+                while first_name == "":
+                    first_name = input("First name:\n")
+                    if not first_name.isalpha():
+                        print("Please enter only letters")
+                        first_name = ""
+
+                while last_name == "":
+                    last_name = input("Last name:\n")
+                    if not last_name.isalpha():
+                        print("Please enter only letters")
+
+                while True:
+                    print("Confirm the purchase of this ticket")
+                    print("|1| Confirm")
+                    print("|2| Abort purchase")
+                    confirmation = input()
+                    if confirmation == "1":
+                        purchase_ticket(departure, first_name, last_name)
+                        return
+
+                    elif confirmation == "2":
+                        return
+                    else:
+                        print("Invalid command. Please enter a valid command.")
+
+            elif selection == "2":
+                return
+            else:
+                print("Invalid command. Please enter a valid command.")
+
+    def connected_departures_menu(departure):
+        first_name, last_name = "", ""
+        if self_purchase is True:
+            while True:
+                print("Do you wish to purchase a ticket for flights connected to your flight?")
+                print("|1| Yes")
+                print("|2| No")
+                selection = input()
+                if selection == "1":
+
+                    arrival_date_obj = datetime.strptime(departure.arrival_date, "%d-%m-%Y").date()
+                    arrival_time_obj = datetime.strptime(departure.flight.arrival_time, "%H:%M").time()
+
+                    arrival_datetime_obj = datetime.combine(arrival_date_obj, arrival_time_obj)
+                    arrival_datetime_obj_delta = arrival_datetime_obj + timedelta(minutes=120)
+
+                    candidates = []
+                    search_criteria = create_search_dict()
+                    search_criteria["departure_airport"] = departure.flight.destination_airport.city
+                    candidates.extend(departure_search(departures, search_criteria))
+
+                    results = []
+                    for departure in candidates:
+                        connected_date = datetime.strptime(departure.departure_date, "%d-%m-%Y").date()
+                        connected_time = datetime.strptime(departure.flight.departure_time, "%H:%M").time()
+                        connected_datetime = datetime.combine(connected_date, connected_time)
+
+                        if connected_datetime >= arrival_datetime_obj and connected_datetime <= arrival_datetime_obj_delta:
+                            results.append(departure)
+
+                    print_departure_search_table(results)
+
+                    new_departure = validate_departure_id(results)
+
+                    if new_departure is False:
+                        return
+                    print("Confirm the purchase of this ticket")
+                    print("|1| Confirm")
+                    print("|2| Abort purchase")
+                    confirmation = input()
+                    if confirmation == "1":
+                        customer_ticket = purchase_ticket(new_departure, first_name, last_name)
+                        print_ticket(customer_ticket, "Single")
+
+                    elif confirmation == "2":
+                        return
+                    else:
+                        print("Invalid command. Please enter a valid command.")
+
+                elif selection == "2":
+                    return
+                else:
+                    print("Invalid command. Please enter a valid command.")
 
     while True:
-        # print("Please enter a flight ID. You can also look it up using search")
         print("|0| Return to previous menu")
         print("|1| Enter the departure ID for the ticket you wish to purchase ")
         print("|2| Look up departure IDs by a single criteria")
@@ -142,80 +426,19 @@ def purchase_tickets_menu():
             return
 
         elif choice == "1":
-            #first_name, last_name = "", ""
+
             departure = validate_departure_id()
             if departure is False:
                 continue
-            first_name, last_name = submenu_1()
-            # while True:
-            #
-            #     print("Are you purchasing this ticket for yourself?")
-            #     print("|1| Yes, I am purchasing this ticket for myself.")
-            #     print("|2| No, I am purchasing this ticket for somebody else.")
-            #     command = input()
-            #
-            #     if command == "1":
-            #         customer = "Self"
-            #         break
-            #         # TODO: Take data from the currently logged in user
-            #
-            #     elif command == "2":
-            #         customer = "Other"
-            #         print("Please enter the first and last name of the person you are purchasing the ticket for")
-            #
-            #         while first_name == "":
-            #             first_name = input("First name:\n")
-            #             if not first_name.isalpha():
-            #                 print("Please enter only letters")
-            #                 first_name = ""
-            #
-            #         while last_name == "":
-            #             last_name = input("Last name:\n")
-            #             if not last_name.isalpha():
-            #                 print("Please enter only letters")
-            #
-            #         # TODO: Enter name and last name for the contact person, but take contact info from the logged in user
-            #         break
-            #
-            #
-            #     else:
-            #         print("Invalid command. Please enter a valid command.\n")
-            #         continue
 
-            while True:
-                print("Confirm the purchase of this ticket")
-                print("|1| Confirm")
-                print("|2| Abort purchase")
-                confirmation = input()
-                if confirmation == "1":
-                    purchase_ticket(departure, first_name, last_name)
+            first_name, last_name = holder_menu()  # empty for self pruchase, first and last name when purchasing for other person
 
-                    print("Do you wish to purchase tickets for flights connected to your flight?")
-                    print("|1| Yes")
-                    print("|2| No")
+            confirmation_menu(departure, first_name, last_name)
 
-                    while True:
-                        selection = input()
-                        if selection == "1":
-                            #TODO: purchase connected for self
-                            print("Do you wish to purchase tickets for a passenger:")
-                            print("|1| Yes")
-                            print("|2| No")
-                            #while True:
-                                #TODO: Purchase connected for passenger
-                            pass
+            global customer, self_purchase  # reset global variables to their initial state
 
-                        elif selection == "2":
-                            break
-                        else:
-                            print("Invalid command. Please enter a valid command.\n")
-
-
-                    break
-                elif confirmation == "2":
-                    break
-                else:
-                    print("Invalid command. Please enter a valid command.\n")
+            customer = ""
+            self_purchase = False
 
         elif choice == "2":
             departure_search_menu("End")
@@ -396,15 +619,15 @@ def print_departure_search_table(results):
 def print_flight_search_table(results):
     if len(results) > 0:
         print(
-            "{:16}{:30}{:30}{:30}{:20}{:10}{:}".format("Flight number", "From", "To", "Departure dates",
+            "{:16}{:30}{:30}{:30}{:24}{:10}{:}".format("Flight number", "From", "To", "Departure dates",
                                                        "Overnight flight?",
                                                        "Price", "Airline"))
         for flight in results:
-            print("{:16}{:30}{:30}{:30}{:20}{:10}{:}".format(flight.flight_number,
+            print("{:16}{:30}{:30}{:30}{:24}{:10}{:}".format(flight.flight_number,
                                                              flight.departure_airport.city,
                                                              flight.destination_airport.city,
-                                                             flight.days,
-                                                             flight.overnight,
+                                                             flight.days + " at " + flight.departure_time,
+                                                             flight.overnight + " - Arrives at " + flight.arrival_time,
                                                              flight.price + " €",
                                                              flight.airline))
     else:
@@ -434,8 +657,6 @@ def validate_city(search_criteria, key, text):
             if valid is False:
                 print("Invalid city. ", end="")
                 search_criteria[key] = ""
-            # TODO: Iata
-            # search_criteria[key] = ""
 
         else:
             print("Invalid city. ", end="")
@@ -613,6 +834,9 @@ def save_ticket_to_file(ticket):
         line = "\n" + str(ticket.serialize())
         f.write(line)
 
+    with open("data/current_ticket_id", "w") as f:
+        f.write(str(current_ticket_id))
+
 
 def print_default_menu():
     print("|2| Exit application")
@@ -643,36 +867,12 @@ def default_menu(command):
             command_dict[command]()
         return True
     return False
-    # if command == '2':
-    #     exit()
-    #     #TODO: Save departures to file
-    #     save_departures_to_file()
-    # elif command == '3':
-    #     unrealised_departures()
-    #     #TODO: Overview of unrealised flights
-    # elif command == '4':
-    #     # for departure in departures:
-    #     #     if departure.id == "0001" and departure.capacity > departure.seats_taken:
-    #     #         departure.seats_taken += 1
-    #     #     print(departure.serialize())
-    #     flight_search_menu("")
-    #     #TODO: Flight search by one criteria
-    # elif command == '5':
-    #     flight_search_menu("","Multi")
-    # elif command == '6':
-    #     cheapest_flights_menu(10)
-    # elif command == '7':
-    #     flexible_schedule_menu()
-    # else:
-    #     return False
-    # return True
-
 
 def customer_menu():
     command_dict = {
-        "8": purchase_tickets_menu,  # TODO: buy tickets
-        "9": departure_search_menu,  # TODO: unrealised tickets
-        "10": departure_search_menu,  # TODO: check-in
+        "8": purchase_tickets_menu,
+        "9": unrealised_tickets,
+        "10": check_in_menu,  # TODO: check-in
     }
 
     print("Currently logged in as", current_user.first_name, current_user.last_name)
@@ -693,6 +893,7 @@ def customer_menu():
         valid = default_menu(command)
         if not valid and command not in command_dict:
             print("Unknown command, please enter a valid command")
+
 
 def seller_menu():
     command_dict = {
@@ -724,6 +925,7 @@ def seller_menu():
         if not valid and command not in command_dict:
             print("Unknown command, please enter a valid command")
 
+
 def manager_menu():
     command_dict = {
         "8": purchase_tickets_menu,  # TODO:
@@ -753,9 +955,11 @@ def manager_menu():
         if not valid and command not in command_dict:
             print("Unknown command, please enter a valid command")
 
+
 def main():
 
     print("Welcome")
+    print(datetime.now())
     while True:
 
         print("|1| Log in")
