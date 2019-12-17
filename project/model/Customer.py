@@ -3,7 +3,7 @@ from model.Enums import Role
 
 
 class Customer(User):
-    def __init__(self, username, password, first_name, last_name, phone, email, passport_number="", citizenship="",
+    def __init__(self, username, password, first_name, last_name, phone, email, passport_number="", nationality="",
                  gender=None):
         # if gender != None and not isinstance(gender, Gender):
         # raise ValueError("Unesi dobar pol")
@@ -12,7 +12,7 @@ class Customer(User):
         self.phone = phone
         self.email = email
         self.passport_number = passport_number
-        self.citizenship = citizenship
+        self.nationality = nationality
         self.gender = gender
 
         # TODO: Fix this
@@ -22,4 +22,4 @@ class Customer(User):
 
     def serialize(self):
         return (self.username + "|" + self.password + "|" + self.first_name + "|" + self.last_name + "|" + self.phone
-                + "|" + self.email + "|" + self.passport_number + "|" + self.citizenship + "|" + str(self.gender))
+                + "|" + self.email + "|" + self.passport_number + "|" + self.nationality + "|" + str(self.gender))

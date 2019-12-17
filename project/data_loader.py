@@ -166,10 +166,13 @@ def load_tickets(departures):
                         ticket_data[3],  # last_name
                         ticket_data[4],  # contact_phone
                         ticket_data[5],  # contact_email
-                        ticket_data[6],  # purchase_date
-                        ticket_data[7],  # seat
-                        ticket_data[8],  # delete
-                        ticket_data[9])  # sold_by
+                        ticket_data[6],  # passport number
+                        ticket_data[7],  # nationality
+                        ticket_data[8],  # gender
+                        ticket_data[9],  # purchase_date
+                        ticket_data[10],  # seat
+                        ticket_data[11],  # delete
+                        ticket_data[12])  # sold_by
         tickets.append(ticket)
     return tickets
 
