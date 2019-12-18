@@ -11,6 +11,36 @@ def create_search_dict():
     search_criteria["airline"] = ""
     return search_criteria
 
+def create_search_dict_ticket():
+    search_criteria = dict()
+    search_criteria["departure_airport"] = ""
+    search_criteria["destination_airport"] = ""
+    search_criteria["departure_date"] = ""
+    search_criteria["arrival_date"] = ""
+    #search_criteria["first_name"] = ""
+    #search_criteria["last_name"] = ""
+    search_criteria["email"] = ""
+    return search_criteria
+
+def ticket_search(tickets, search_criteria):
+    candidates = tickets[:]
+    for ticket in candidates:
+        if search_criteria["departure_airport"] != "":
+            candidates[:] = [ticket for ticket in candidates if search_criteria["departure_airport"].lower() == ticket.departure.flight.departure_airport.city.lower()]
+        if search_criteria["destination_airport"] != "":
+            candidates[:] = [ticket for ticket in candidates if search_criteria["destination_airport"].lower() == ticket.departure.flight.destination_airport.city.lower()]
+        if search_criteria["departure_date"] != "":
+            candidates[:] = [ticket for ticket in candidates if search_criteria["departure_date"] == ticket.departure.departure_date]
+        if search_criteria["arrival_date"] != "":
+            candidates[:] = [ticket for ticket in candidates if search_criteria['arrival_date'] == ticket.departure.arrival_date]
+        # if search_criteria["first_name"] != "":
+        #     candidates[:] = [ticket for ticket in candidates if search_criteria['first_name'] == ticket.first_name]
+        # if search_criteria["last_name"] != "":
+        #     candidates[:] = [ticket for ticket in candidates if search_criteria['last_name'] == ticket.last_name]
+        if search_criteria["email"] != "":
+            candidates[:] = [ticket for ticket in candidates if search_criteria["email"] == ticket.contact_email]
+    return candidates
+
 
 def flight_search(flights, search_criteria):
     candidates = flights[:]

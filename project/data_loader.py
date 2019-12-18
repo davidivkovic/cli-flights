@@ -158,6 +158,8 @@ def load_tickets(departures):
     for line in content:
         ticket_data = line.strip().split('|')
 
+
+
         departure_pointer = [departure for departure in departures if departure.id == ticket_data[1]][0]
 
         ticket = Ticket(ticket_data[0],  # ticket_id
