@@ -1,12 +1,800 @@
-AA00|BEG|CRL|21:30|5:30|Yes|Wizz Air|thu,sun|A320|160
-AA01|LAX|DTM|4:15|6:15|No|Wizz Air|mon,thu|B77L|40
-AA02|BEG|EIN|4:15|8:15|No|Wizz Air|mon,tue,wed,thu,sun|A333|80
-AA03|BEG|FMM|2:45|7:45|No|Wizz Air|thu|A333|100
-AA04|BEG|GSE|14:00|18:00|No|Wizz Air|wed|A333|80
-AA05|BEG|LCA|7:15|8:15|No|Wizz Air|tue,wed,fri,sat,sun|A333|20
-AA06|BEG|LAX|10:30|12:30|No|Wizz Air|mon,tue,sun|A333|40
-AA07|BEG|CRL|4:30|14:30|No|Wizz Air|fri,sun|A333|200
-AA08|CRL|NYO|6:30|22:00|No|Wizz Air|mon,wed|A333|140
-AA09|BEG|NYO|14:45|16:45|No|Wizz Air|fri|A333|40
-AA10|BEG|TRF|14:00|23:00|No|Wizz Air|tue,wed,thu,fri,sat|A333|180
-AA11|NYO|BEG|22:30|23:30|No|Wizz Air|mon,wed|A333|140
+AA00|AER|KZN|2:15|7:15|No|flybe|tue wed thu fri|AN12|205
+AA01|BEG|STR|7:15|12:15|No|Jet2.com|mon tue fri|B741|445
+AA02|STR|BEG|1:00|8:00|No|Azur Air|mon wed fri|E290|405
+AA03|ATH|BEG|8:30|17:30|No|Pegasus Airlines|tue wed sat|E145|225
+AA04|BEG|ATH|19:15|5:15|Yes|flybe|mon fri |B37M|390
+AA05|BEG|DUS|5:15|12:15|No|TAROM|tue thu sat sun|A345|240
+AA06|BEG|FRA|16:15|22:15|No|Air Astana|mon tue wed|EA32|495
+AA07|BEG|STR|7:30|12:30|No|SmartWings|sun|A332|205
+AA08|BEG|TXL|11:00|14:00|No|Turkish Airlines|wed sun |B739|515
+AA09|DUS|BEG|17:30|20:30|No|Ryanair|mon wed fri|B752|520
+AA10|FRA|BEG|10:15|21:15|No|Finnair|tue|E190|525
+AA11|STR|BEG|19:00|3:00|Yes|Blue Air|mon thu sun|B74S|360
+AA12|TXL|BEG|10:00|14:00|No|Nordwind Airlines|wed thu |A338|235
+AA13|BEG|CDG|00:00|4:00|No|Lauda Motion|tue thu |E295|380
+AA14|CDG|BEG|13:45|22:45|No|Jet2.com|wed sat |F27|125
+AA15|BEG|FCO|23:00|6:00|Yes|Icelandair Group|tue fri |F70|215
+AA16|BEG|MXP|20:30|5:30|Yes|Air Serbia|wed fri |A359|200
+AA17|FCO|BEG|10:00|12:00|No|Pegasus Airlines|mon wed fri sun|CRJ9|520
+AA18|MXP|BEG|9:45|12:45|No|Pegasus Airlines|mon tue sun|EA31|335
+AA19|BEG|BUD|1:45|10:45|No|TAP Air Portugal|wed|B721|385
+AA20|BUD|BEG|23:00|8:00|Yes|EasyJet|mon tue wed thu fri|A342|505
+AA21|ARN|BEG|11:30|18:30|No|Air Italy|tue wed thu fri|A338|325
+AA22|BEG|ARN|12:30|14:30|No|Ukraine International Airlines|mon fri |B720|415
+AA23|BEG|OSL|3:45|12:45|No|LOT Polish Airlines|wed|B37M|190
+AA24|OSL|BEG|00:15|8:15|No|Ural Airlines|fri sun |AN32|380
+AA25|AMS|BEG|17:00|20:00|No|Pegasus Airlines|tue|B742|255
+AA26|ARN|BEG|00:30|2:30|No|Finnair|thu sat |B742|465
+AA27|AUH|BEG|8:15|19:15|No|TAROM|mon sun |EA33|535
+AA28|BEG|AMS|4:30|14:30|No|SmartWings|fri sat |AN26|195
+AA29|BEG|ARN|4:30|5:30|No|Nordwind Airlines|mon|B741|465
+AA30|BEG|AUH|1:30|6:30|No|UTair Aviation|fri sun |B703|110
+AA31|BEG|FRA|16:00|2:00|Yes|UTair Aviation|fri sat |AN26|445
+AA32|BEG|LHR|9:45|10:45|No|Bulgaria Air|thu fri |F100|215
+AA33|FRA|BEG|19:15|2:15|Yes|Enter Air|mon tue sun|E145|450
+AA34|BEG|GVA|19:00|5:00|Yes|Belavia|tue thu sat sun|A140|235
+AA35|GVA|BEG|2:30|4:30|No|Air Italy|fri sat |AN28|525
+AA36|BEG|DXB|16:00|00:00|Yes|Air Malta|mon tue sat|A306|255
+AA37|DXB|BEG|9:45|19:45|No|Lufthansa|mon wed fri|B736|320
+AA38|BEG|SJJ|5:00|15:00|No|Lauda Motion|tue wed |EA33|120
+AA39|SJJ|BEG|15:00|19:00|No|Lauda Motion|mon thu sat|A321|265
+AA40|AMS|BEG|4:45|11:45|No|Air Europa|mon sat |A310|535
+AA41|ARN|BEG|00:00|1:00|No|Azur Air|wed sun |B3XM|550
+AA42|ATH|BEG|21:00|7:00|Yes|Virgin Atlantic|mon wed sat|E190|545
+AA43|AUH|BEG|21:15|5:15|Yes|Belavia|tue|E75S/L|490
+AA44|BEG|AMS|00:00|11:00|No|Belavia|thu fri |E135|285
+AA45|BEG|ARN|12:30|21:30|No|Ukraine International Airlines|mon|A359|260
+AA46|BEG|ATH|10:45|16:45|No|Wizz Air|wed sat |A345|225
+AA47|BEG|AUH|18:00|00:00|Yes|Lauda Motion|tue wed thu fri|CRJ7|485
+AA48|BEG|BNX|20:00|00:00|Yes|Swiss International Air Lines|tue sun |E170|250
+AA49|BEG|BRU|21:15|5:15|Yes|Belavia|fri sun |B788|360
+AA50|BEG|BUD|4:30|12:30|No|Adria Airways|mon tue wed thu fri|F70|425
+AA51|BEG|CDG|00:30|2:30|No|Aegean Airlines|wed sun |B733|145
+AA52|BEG|CPH|21:45|5:45|Yes|WOW air|wed thu |B741|215
+AA53|BEG|DUS|4:00|8:00|No|easyJet|mon thu |E75L|470
+AA54|BEG|FCO|18:15|21:15|No|Icelandair Group|tue wed thu fri|CRJX|380
+AA55|BEG|FRA|18:30|21:30|No|Blue Air|thu sat |B74R|545
+AA56|BEG|LCA|00:00|5:00|No|Swiss International Air Lines|tue wed thu fri|EA34|525
+AA57|BEG|LHR|6:30|14:30|No|Alitalia|mon sat |AN32|505
+AA58|BEG|LJU|12:15|16:15|No|Croatia Airlines|tue sun |B744|225
+AA59|BEG|MXP|2:30|8:30|No|SmartWings|mon tue |B736|195
+AA60|BEG|OTP|20:30|3:30|Yes|Icelandair Group|tue thu |AN28|325
+AA61|BEG|PRG|2:30|9:30|No|Air Europa|sat|E75S/L|500
+AA62|BEG|SAW|6:00|10:00|No|TAP Air Portugal|tue thu |CRJ9|535
+AA63|BEG|SJJ|17:15|18:15|No|Red Wings Airlines|mon wed sat|A310|145
+AA64|BEG|SKG|17:30|19:30|No|Wizz Air|tue fri sat|B773|495
+AA65|BEG|SKP|16:00|18:00|No|LOT Polish Airlines|mon thu sun|B789|380
+AA66|BEG|SOF|6:00|8:00|No|Air Europa|mon wed sat|E170|450
+AA67|BEG|STR|16:00|3:00|Yes|LOT Polish Airlines|mon wed fri sun|A338|525
+AA68|BEG|SVO|3:45|14:45|No|TAP Air Portugal|mon tue wed|A346|365
+AA69|BEG|TGD|12:45|18:45|No|LOT Polish Airlines|thu fri |B763|255
+AA70|BEG|TIV|15:15|16:15|No|Air Astana|tue|A332|190
+AA71|BEG|TLV|4:00|11:00|No|Bulgaria Air|thu fri |AN26|150
+AA72|BEG|TXL|18:15|5:15|Yes|Air France|mon sat |A19N|255
+AA73|BEG|VAR|17:30|4:30|Yes|Turkish Airlines|tue sat |A318|440
+AA74|BEG|VIE|5:30|10:30|No|SmartWings|mon thu sat|A343|345
+AA75|BEG|WAW|00:30|3:30|No|Air Serbia|mon fri |B720|395
+AA76|BEG|ZRH|11:15|17:15|No|Luxair|tue wed thu fri|E290|520
+AA77|BNX|BEG|2:45|8:45|No|Air Europa|mon wed sat|B721|475
+AA78|BRU|BEG|1:45|11:45|No|Air Malta|thu sat |A310|470
+AA79|BUD|BEG|16:00|18:00|No|LOT Polish Airlines|tue wed sat|B39M|550
+AA80|CDG|BEG|19:45|21:45|No|flybe|mon tue |B763|245
+AA81|CPH|BEG|00:45|9:45|No|Adria Airways|mon tue sun|B77W|510
+AA82|DUS|BEG|19:45|00:45|Yes|Icelandair Group|wed|B743|360
+AA83|FCO|BEG|15:30|00:30|Yes|Belavia|mon sun |A343|460
+AA84|FRA|BEG|22:30|1:30|Yes|Aegean Airlines|mon thu sun|E195|225
+AA85|LCA|BEG|11:30|15:30|No|Blue Air|tue fri |B748|540
+AA86|LHR|BEG|1:00|2:00|No|Enter Air|wed|B752|425
+AA87|LJU|BEG|2:15|6:15|No|Eurowings|mon thu sun|E190|500
+AA88|MXP|BEG|17:30|3:30|Yes|Luxair|thu sun |B77W|240
+AA89|OTP|BEG|7:45|9:45|No|Air Europa|mon tue wed|EA32|230
+AA90|PRG|BEG|19:30|4:30|Yes|Pegas Fly|thu fri |B772|175
+AA91|SAW|BEG|1:00|2:00|No|TAP Air Portugal|tue wed |CRJ7|145
+AA92|SJJ|BEG|00:45|3:45|No|SAS Group|mon thu sun|EA30|465
+AA93|SKG|BEG|12:00|16:00|No|TAROM|mon thu sat|B721|310
+AA94|SKP|BEG|16:45|23:45|No|Ryanair|tue sun |A388|160
+AA95|SOF|BEG|6:45|10:45|No|Blue Air|wed sat sun|B732|425
+AA96|STR|BEG|8:00|15:00|No|Enter Air|mon wed fri sun|B773|400
+AA97|SVO|BEG|00:00|4:00|No|TAROM|wed thu |B39M|445
+AA98|TGD|BEG|7:00|14:00|No|Ural Airlines|mon|B752|515
+AB00|TIV|BEG|6:15|9:15|No|Ukraine International Airlines|mon tue thu|A148|475
+AB01|TLV|BEG|21:00|22:00|No|TAP Air Portugal|fri sun |AN72|445
+AB02|TXL|BEG|23:00|9:00|Yes|easyJet|tue wed sat|B744|250
+AB03|VAR|BEG|15:15|21:15|No|Air Serbia|mon thu |B764|430
+AB04|VIE|BEG|2:15|8:15|No|Wizz Air|mon wed sat|B748|270
+AB05|WAW|BEG|18:00|21:00|No|Alitalia|mon thu sat|AN12|345
+AB06|ZRH|BEG|13:30|15:30|No|UTair Aviation|mon tue wed thu fri|B773|275
+AB07|BEG|FRA|18:00|4:00|Yes|Air Astana|wed fri |B773|430
+AB08|BEG|MUC|15:00|2:00|Yes|Swiss International Air Lines|thu fri |EA32|370
+AB09|FRA|BEG|20:45|5:45|Yes|Air Serbia|mon|EA30|335
+AB10|MUC|BEG|7:45|8:45|No|Ellinair|mon|A21N|480
+AB11|BEG|WAW|10:00|19:00|No|SmartWings|mon sat |B734|455
+AB12|WAW|BEG|5:45|16:45|No|Bulgaria Air|tue|F100|255
+AB13|BEG|GVA|8:30|9:30|No|flybe|wed fri |B712|530
+AB14|BEG|ZRH|13:45|19:45|No|Luxair|tue sat |A333|315
+AB15|GVA|BEG|00:15|3:15|No|SmartWings|mon wed |B748|145
+AB16|ZRH|BEG|9:30|16:30|No|Ryanair|mon tue sat|B37M|320
+AB17|ATH|BEG|13:30|21:30|No|WOW air|mon tue sat|A21N|305
+AB18|BEG|ATH|16:00|21:00|No|Enter Air|mon wed fri|B712|210
+AB19|BEG|VIE|23:30|3:30|Yes|Icelandair Group|thu fri |A19N|190
+AB20|VIE|BEG|9:30|20:30|No|Air France|tue fri |B735|205
+AB21|BEG|SPU|5:45|6:45|No|Swiss International Air Lines|mon tue fri|BCS1|285
+AB22|SPU|BEG|5:15|10:15|No|SmartWings|thu|A20N|475
+AB23|BEG|SAW|3:15|13:15|No|WOW air|mon tue fri|AN24|350
+AB24|SAW|BEG|5:45|15:45|No|Aeroflot Group|tue fri |CRJ2|190
+AB25|BEG|ESB|19:15|2:15|Yes|Jet2.com|wed sun |E75S|225
+AB26|ESB|BEG|3:45|9:45|No|Blue Air|tue sun |AN30|225
+AB27|BEG|OTP|12:30|21:30|No|Alitalia|tue wed sat|E75L|445
+AB28|OTP|BEG|2:15|9:15|No|TAROM|mon wed |B788|500
+AB29|BEG|FRA|12:30|17:30|No|Lauda Motion|mon tue fri|A140|385
+AB30|BEG|MUC|00:30|12:30|No|Aegean Airlines|mon tue wed|B721|350
+AB31|FRA|BEG|7:00|18:00|No|Virgin Atlantic|mon wed fri sun|E290|400
+AB32|MUC|BEG|2:00|7:00|No|Pegasus Airlines|tue thu |F27|425
+AB33|BEG|SVO|11:30|17:30|No|Ukraine International Airlines|sat|B712|355
+AB34|SVO|BEG|16:30|3:30|Yes|WOW air|mon wed sat|A345|395
+AB35|BEG|IST|18:15|3:15|Yes|Luxair|thu|B3XM|270
+AB36|IST|BEG|12:15|23:15|No|Belavia|wed thu |AN26|335
+AB37|BEG|TUN|16:30|2:30|Yes|Wizz Air|sat|B732|190
+AB38|TUN|BEG|10:45|11:45|No|Alitalia|fri|AN72|250
+AB39|BEG|FCO|14:45|23:45|No|Turkish Airlines|wed thu |E75S|335
+AB40|BEG|GVA|1:45|7:45|No|Belavia|tue sat |B733|325
+AB41|BEG|MXP|14:30|18:30|No|Lufthansa|mon tue sat|E135|475
+AB42|FCO|BEG|15:45|16:45|No|Icelandair Group|mon wed fri|A338|390
+AB43|GVA|BEG|8:00|10:00|No|Azerbaijan Airlines|mon thu sat|B743|265
+AB44|MXP|BEG|4:30|5:30|No|Adria Airways|wed sat |B737|435
+AB45|BEG|BVA|7:15|11:15|No|Air Italy|mon tue wed thu fri|B772|430
+AB46|BEG|CRL|2:00|9:00|No|Red Wings Airlines|tue wed |CRJ7|125
+AB47|BEG|DTM|8:30|10:30|No|Red Wings Airlines|fri sat |B778|440
+AB48|BEG|EIN|12:15|15:15|No|Air Malta|tue thu |AN30|520
+AB49|BEG|FMM|6:00|15:00|No|Air Europa|fri sun |B763|490
+AB50|BEG|GSE|23:30|6:30|Yes|Air Malta|mon|F28|355
+AB51|BEG|LCA|8:15|18:15|No|SAS Group|thu sun |B712|450
+AB52|BEG|LTN|21:00|2:00|Yes|Turkish Airlines|mon sun |B733|500
+AB53|BEG|MLH|8:30|19:30|No|SAS Group|wed sat |A321|400
+AB54|BEG|MMX|3:15|6:15|No|Blue Air|tue wed sat|E190|400
+AB55|BEG|NYO|15:45|00:45|Yes|UTair Aviation|tue sun |B778|415
+AB56|BEG|TRF|7:00|13:00|No|Volotea|thu sat |B778|325
+AB57|BVA|BEG|13:15|22:15|No|Ural Airlines|mon tue fri|F27|290
+AB58|CRL|BEG|6:45|7:45|No|Blue Air|tue fri |B77W|255
+AB59|DTM|BEG|18:30|20:30|No|Red Wings Airlines|mon wed fri sun|A345|260
+AB60|EIN|BEG|13:45|17:45|No|SmartWings|tue wed |B733|345
+AB61|FMM|BEG|17:45|20:45|No|Air Astana|tue wed sat|B773|245
+AB62|GSE|BEG|15:30|16:30|No|Bulgaria Air|mon wed |B743|265
+AB63|LCA|BEG|00:45|3:45|No|Air Serbia|mon thu |EA32|305
+AB64|LTN|BEG|7:15|8:15|No|EasyJet|fri sun |E295|375
+AB65|MMX|BEG|9:45|18:45|No|Ellinair|wed thu |A19N|390
+AB66|NYO|BEG|21:30|4:30|Yes|easyJet|thu sun |B762|230
+AB67|TRF|BEG|15:30|2:30|Yes|Wizz Air|mon tue sun|B779|505
+AB68|BEG|TGD|19:30|4:30|Yes|TAP Air Portugal|wed thu |EA31|130
+AB69|BEG|TIV|19:15|3:15|Yes|Air Italy|mon sat |A35K|540
+AB70|TGD|BEG|4:15|12:15|No|Icelandair Group|tue wed sat|E190|180
+AB71|TIV|BEG|22:00|6:00|Yes|Aeroflot Group|wed fri |B743|430
+AB72|FCO|ORD|5:15|10:15|No|Air Europa|mon tue |E75S/L|130
+AB73|FCO|PHL|18:00|00:00|Yes|Jet2.com|sun|A306|305
+AB74|FDF|MIA|11:45|15:45|No|Air Serbia|thu sun |F27|250
+AB75|FDF|SJU|17:00|4:00|Yes|Icelandair Group|wed thu |E190|375
+AB76|FLG|PHX|12:30|23:30|No|Turkish Airlines|wed thu |A21N|360
+AB77|FLL|CLT|15:45|23:45|No|TAROM|tue wed sat|BCS1|190
+AB78|FLL|DCA|6:15|7:15|No|Ukraine International Airlines|mon thu fri|A35K|480
+AB79|FLL|DFW|2:15|7:15|No|TAROM|tue fri sat|A332|540
+AB80|FLL|ORD|4:30|15:30|No|Turkish Airlines|mon wed sun|BCS1|260
+AB81|FLL|PAP|10:00|12:00|No|Ellinair|thu|E170|145
+AB82|FLL|PHL|1:15|8:15|No|SAS Group|wed fri |A332|490
+AB83|FLL|PHX|23:15|2:15|Yes|Volotea|thu fri |A388|135
+AB84|FLO|CLT|3:45|5:45|No|Red Wings Airlines|fri sat |B762|305
+AB85|FNT|ORD|23:30|2:30|Yes|Pegas Fly|wed sat |A343|245
+AB86|FPO|CLT|19:30|00:30|Yes|TAROM|fri sat |A346|475
+AB87|FPO|MIA|11:30|16:30|No|Ukraine International Airlines|thu sun |B736|455
+AB88|FRA|CLT|1:00|5:00|No|Adria Airways|tue wed |A345|440
+AB89|FRA|DFW|14:45|1:45|Yes|Enter Air|sun|B77L|165
+AB90|FRA|KUL|1:15|3:15|No|Red Wings Airlines|fri sun |B77L|550
+AB91|FRA|LHR|8:45|9:45|No|WOW air|tue thu sat sun|E195|460
+AB92|FRA|PHL|11:15|16:15|No|Virgin Atlantic|thu sun |A338|240
+AB93|FSD|DFW|00:15|11:15|No|Croatia Airlines|mon tue |B74S|485
+AB94|FSD|ORD|17:15|3:15|Yes|Ural Airlines|tue|E75S/L|230
+AB95|FSM|DFW|22:45|2:45|Yes|SAS Group|wed sat |B743|165
+AB96|FUK|NRT|18:15|2:15|Yes|Aeroflot Group|mon thu fri|B743|340
+AB97|FWA|DFW|7:00|8:00|No|Turkish Airlines|mon wed sat|A140|400
+AB98|FWA|ORD|21:45|1:45|Yes|UTair Aviation|mon thu |A148|275
+AC00|GCK|DFW|15:15|23:15|No|Nordwind Airlines|mon thu sat|B764|305
+AC01|GCM|CLT|3:15|6:15|No|Croatia Airlines|mon wed sun|A140|385
+AC02|GCM|MIA|11:30|19:30|No|Swiss International Air Lines|mon|B752|445
+AC03|GCM|PHL|15:00|16:00|No|Finnair|wed fri |B744|495
+AC04|GDL|DFW|3:00|13:00|No|Lufthansa|mon wed fri sun|B77W|355
+AC05|GDL|LAX|17:15|00:15|Yes|Icelandair Group|tue thu sat sun|EA32|210
+AC06|GDL|PHX|13:45|17:45|No|Air Serbia|tue sun |E190|530
+AC07|GDL|SJC|00:00|4:00|No|Air Astana|tue fri sat|A388|435
+AC08|GEG|PHX|19:45|5:45|Yes|Swiss International Air Lines|tue wed |EA31|275
+AC09|GGG|DFW|17:00|19:00|No|Virgin Atlantic|mon tue wed thu fri|AN12|505
+AC10|GGT|MIA|16:00|20:00|No|Air France|mon tue thu|CRJX|290
+AC11|GIB|LHR|23:45|00:45|Yes|Lauda Motion|mon wed fri|AN24|435
+AC12|GIG|CLT|7:45|16:45|No|Air France|tue fri |A345|345
+AC13|GIG|DFW|00:30|8:30|No|Ural Airlines|mon wed |B735|515
+AC14|GIG|JFK|11:00|14:00|No|SmartWings|mon thu |B752|500
+AC15|GIG|MIA|21:45|5:45|Yes|Pegasus Airlines|mon thu fri|B77L|135
+AC16|GJT|DFW|3:45|4:45|No|Turkish Airlines|sun|F28|365
+AC17|GJT|PHX|23:45|3:45|Yes|LOT Polish Airlines|thu sat |B753|345
+AC18|GLA|LHR|15:45|2:45|Yes|Nordwind Airlines|mon wed sat|AN28|205
+AC19|GLA|PHL|1:00|5:00|No|flybe|mon wed fri|CRJ9|550
+AC20|GND|MIA|16:30|19:30|No|Ukraine International Airlines|mon sat |B737|155
+AC21|GNV|CLT|10:45|14:45|No|Red Wings Airlines|wed thu |B77W|545
+AC22|GNV|MIA|16:30|17:30|No|Ryanair|tue wed thu fri|A19N|340
+AC23|GOT|LHR|11:15|12:15|No|Adria Airways|tue wed sat|B77L|260
+AC24|GPT|CLT|00:00|4:00|No|Ukraine International Airlines|wed|E190|395
+AC25|GPT|DFW|6:45|13:45|No|Ural Airlines|wed fri |B39M|135
+AC26|GRB|ORD|12:45|14:45|No|Adria Airways|mon wed sat|E295|200
+AC27|GRI|DFW|00:30|10:30|No|Pegasus Airlines|sun|A140|235
+AC28|GRK|DFW|11:45|13:45|No|Air France|thu sat |F28|525
+AC29|GRR|DFW|12:15|20:15|No|Virgin Atlantic|fri sat |A321|395
+AC30|GRR|ORD|19:15|6:15|Yes|Red Wings Airlines|mon wed sat|B735|455
+AC31|GRU|CLT|23:00|9:00|Yes|Air Malta|fri|B720|245
+AC32|GRU|DFW|00:30|3:30|No|Air Malta|tue thu sat sun|A319|205
+AC33|GRU|JFK|11:15|20:15|No|SAS Group|mon|B753|375
+AC34|GRU|LAX|1:45|6:45|No|Air Italy|thu sat |A345|265
+AC35|GRU|MCO|18:00|00:00|Yes|WOW air|tue thu sat sun|A19N|425
+AC36|GRU|MIA|12:45|13:45|No|Virgin Atlantic|mon tue wed|A342|435
+AC37|GSO|CLT|8:30|19:30|No|easyJet|mon tue wed thu fri|B735|430
+AC38|GSO|DCA|21:45|3:45|Yes|Finnair|thu|E135|395
+AC39|GSO|DFW|13:30|18:30|No|Air Astana|mon thu fri|B742|295
+AC40|GSO|LGA|1:00|12:00|No|Ukraine International Airlines|sun|F27|265
+AC41|GSO|MIA|17:15|3:15|Yes|Wizz Air|tue thu |AN30|390
+AC42|GSO|PHL|18:00|2:00|Yes|Pegas Fly|thu|B712|185
+AC43|GSP|CLT|23:45|9:45|Yes|Turkish Airlines|fri sat |B74R|200
+AC44|GSP|DCA|1:00|2:00|No|Pegas Fly|mon tue wed|A19N|220
+AC45|GSP|DFW|19:15|1:15|Yes|Enter Air|tue thu |B779|125
+AC46|GSP|PHL|23:00|7:00|Yes|Red Wings Airlines|wed thu |B37M|260
+AC47|GUA|DFW|20:15|22:15|No|Ryanair|sun|A306|185
+AC48|GUA|MIA|4:30|6:30|No|Ukraine International Airlines|mon thu sun|B3XM|305
+AC49|GVA|LHR|6:45|11:45|No|Azur Air|mon thu fri|A318|275
+AC50|GYE|JFK|14:30|1:30|Yes|Ellinair|fri sat |A19N|450
+AC51|GYE|MIA|10:15|18:15|No|Virgin Atlantic|tue|B77W|165
+AC52|GYE|SCY|13:45|15:45|No|Jet2.com|mon thu fri|CRJ9|450
+AC53|GYE|UIO|10:15|21:15|No|Air France|mon thu sat|B762|460
+AC54|HAJ|LHR|21:00|6:00|Yes|Aeroflot Group|tue thu |A140|320
+AC55|HAM|LHR|2:30|10:30|No|Azur Air|mon thu |A343|470
+AC56|HAN|NRT|10:45|15:45|No|Bulgaria Air|mon wed sun|A359|245
+AC57|HEL|JFK|10:45|16:45|No|Pegasus Airlines|mon tue sat|A343|160
+AC58|HEL|LHR|23:15|3:15|Yes|Icelandair Group|tue wed |A306|130
+AC59|HEL|MAN|00:00|9:00|No|Air France|thu sun |B39M|515
+AC60|HHH|CLT|1:00|8:00|No|Virgin Atlantic|mon thu sat|B778|365
+AC61|HHH|DCA|4:45|15:45|No|Air Serbia|tue wed sat|A320|490
+AC62|HKG|EWR|9:00|19:00|No|Swiss International Air Lines|mon wed sun|B738|275
+AC63|HKG|JFK|21:45|22:45|No|Icelandair Group|thu|A310|420
+AC64|HKG|LAX|3:45|8:45|No|Lufthansa|mon thu sat|B37M|280
+AC65|HKG|NRT|1:30|7:30|No|Bulgaria Air|fri sun |B764|190
+AC66|HKG|ORD|4:45|13:45|No|Finnair|fri sun |A310|365
+AC67|HKG|SFO|6:15|12:15|No|Turkish Airlines|mon tue sun|AN24|240
+AC68|HMO|PHX|17:00|3:00|Yes|Finnair|wed sat sun|B779|470
+AC69|HND|HNL|00:45|11:45|No|Pegasus Airlines|mon tue wed thu fri|E295|315
+AC70|HND|SFO|18:00|22:00|No|Lauda Motion|sun|B735|505
+AC71|HNL|DFW|00:45|1:45|No|Lufthansa|wed thu |B78X|270
+AC72|HNL|HND|22:45|23:45|No|Red Wings Airlines|wed sun |F100|400
+AC73|HNL|KIX|8:00|17:00|No|Aegean Airlines|sat|B763|145
+AC74|HNL|LAX|00:45|9:45|No|Jet2.com|tue thu |A388|365
+AC75|HNL|NGO|9:00|15:00|No|Ukraine International Airlines|mon thu sat|B74R|110
+AC76|HNL|NRT|23:00|9:00|Yes|SmartWings|thu sat |B732|335
+AC77|HNL|OAK|5:00|13:00|No|EasyJet|mon tue wed|B742|530
+AC78|HNL|PHX|16:15|17:15|No|Azerbaijan Airlines|mon tue |B3XM|110
+AC79|HNL|SJC|15:00|19:00|No|Virgin Atlantic|tue thu |E190|310
+AC80|HNL|SYD|5:45|16:45|No|Red Wings Airlines|mon tue wed thu fri|AN30|420
+AC81|HOU|DFW|6:15|13:15|No|Lauda Motion|thu sat |E135|515
+AC82|HPN|CLT|2:45|12:45|No|Adria Airways|mon tue fri|B762|350
+AC83|HPN|DCA|1:15|7:15|No|Aeroflot Group|tue wed sat|F28|385
+AC84|HPN|ORD|8:00|15:00|No|Red Wings Airlines|mon|B739|535
+AC85|HPN|PHL|1:15|4:15|No|Adria Airways|sat|B752|325
+AC86|HSV|CLT|7:45|9:45|No|easyJet|tue wed sat|A140|520
+AC87|HSV|DCA|4:00|8:00|No|Pegasus Airlines|tue wed sat|BCS3|360
+AC88|HSV|DFW|9:45|18:45|No|Air Astana|fri sat |A321|415
+AC89|HSV|ORD|16:15|21:15|No|Air France|wed|A20N|470
+AC90|HTS|CLT|17:00|22:00|No|AirBaltic|tue wed |B762|515
+AC91|HVN|PHL|21:45|7:45|Yes|easyJet|wed sat |F70|265
+AC92|HYD|LHR|22:00|8:00|Yes|Bulgaria Air|sat|A338|455
+AC93|IAD|AUH|13:15|15:15|No|Pegasus Airlines|tue wed thu fri|B732|275
+AC94|IAD|CLT|10:30|21:30|No|TAROM|fri|B38M|265
+AC95|IAD|DFW|8:45|14:45|No|Jet2.com|mon wed fri|A306|195
+AC96|IAD|DOH|12:45|21:45|No|Ellinair|tue thu |A318|380
+AC97|IAD|LAX|00:30|10:30|No|TAP Air Portugal|tue wed sat|B778|250
+AC98|IAD|LHR|14:30|21:30|No|easyJet|tue sat |B77L|155
+AD00|IAD|MIA|00:15|10:15|No|Azur Air|wed sun |CRJ9|500
+AD01|IAH|CLT|10:30|16:30|No|Ural Airlines|mon wed fri sun|A342|450
+AD02|IAH|DFW|20:30|3:30|Yes|Blue Air|mon tue sun|E290|305
+AD03|IAH|DOH|21:45|1:45|Yes|Bulgaria Air|mon tue wed|E135|495
+AD04|IAH|LAX|21:00|5:00|Yes|Air Astana|mon tue wed thu fri|B3XM|115
+AD05|IAH|LHR|4:30|9:30|No|Swiss International Air Lines|tue fri |EA30|380
+AD06|IAH|MIA|10:30|21:30|No|Ural Airlines|wed fri |B773|235
+AD07|IAH|ORD|22:00|5:00|Yes|Azerbaijan Airlines|tue fri sat|B74R|450
+AD08|IAH|PHL|3:00|14:00|No|Air Italy|tue wed sat|B779|500
+AD09|IAH|PHX|4:45|15:45|No|Air Malta|mon sun |AN28|505
+AD10|ICN|DFW|8:45|18:45|No|Bulgaria Air|mon tue wed thu fri|B3XM|330
+AD11|ICN|NRT|9:00|19:00|No|Aeroflot Group|tue thu sat sun|EA33|460
+AD12|ICT|DFW|12:45|17:45|No|SmartWings|mon sat |CRJ7|255
+AD13|ICT|ORD|9:00|19:00|No|Lufthansa|thu|E75S/L|280
+AD14|ILM|CLT|18:00|22:00|No|Adria Airways|tue fri sat|B773|285
+AD15|ILM|DCA|19:00|3:00|Yes|WOW air|mon wed fri sun|B763|290
+AD16|ILM|LGA|21:00|00:00|Yes|Ellinair|mon thu |B712|135
+AD17|ILM|PHL|3:15|11:15|No|Lufthansa|wed fri |A332|120
+AD18|IND|CLT|10:00|13:00|No|Virgin Atlantic|tue wed thu fri|A388|450
+AD19|IND|DCA|20:15|23:15|No|Pegas Fly|mon tue fri|B764|285
+AD20|IND|DFW|4:00|8:00|No|Croatia Airlines|mon wed |A346|125
+AD21|IND|JFK|13:45|22:45|No|Red Wings Airlines|tue wed sat|AN12|420
+AD22|IND|LAX|19:30|5:30|Yes|Ellinair|mon thu fri|B77L|110
+AD23|IND|MIA|20:45|00:45|Yes|Wizz Air|tue wed |EA30|160
+AD24|IND|ORD|15:00|21:00|No|Belavia|mon wed fri sun|B39M|430
+AD25|IND|PHL|4:00|15:00|No|Ukraine International Airlines|mon wed sat|E290|235
+AD26|IND|PHX|9:15|11:15|No|AirBaltic|mon thu fri|AN24|550
+AD27|IPT|PHL|00:00|4:00|No|easyJet|mon wed sun|B78X|285
+AD28|ISB|AUH|18:15|23:15|No|Air France|mon thu sun|E75S/L|335
+AD29|ISP|DCA|3:30|11:30|No|Finnair|thu sat |B788|520
+AD30|ISP|PHL|23:15|6:15|Yes|Eurowings|mon thu sat|A225|395
+AD31|IST|LHR|16:00|00:00|Yes|Wizz Air|tue thu |A310|140
+AD32|ITH|PHL|10:00|18:00|No|flybe|mon thu sat|B764|120
+AD33|ITM|NRT|00:30|6:30|No|Air Astana|mon thu sat|B721|490
+AD34|JAN|CLT|5:45|13:45|No|TAROM|mon thu fri|B772|535
+AD35|JAN|DCA|22:30|9:30|Yes|Croatia Airlines|mon thu fri|B762|150
+AD36|JAN|DFW|18:15|3:15|Yes|Air Astana|mon tue |F28|115
+AD37|JAX|CLT|13:15|16:15|No|Virgin Atlantic|tue fri sat|B74R|550
+AD38|JAX|DCA|17:30|00:30|Yes|Virgin Atlantic|mon wed fri|AN26|260
+AD39|JAX|DFW|14:15|21:15|No|UTair Aviation|mon thu fri|A20N|475
+AD40|JAX|MIA|10:30|18:30|No|Ukraine International Airlines|wed sat sun|E75S/L|245
+AD41|JAX|ORD|13:15|17:15|No|SAS Group|mon tue wed thu fri|CRJ1|360
+AD42|JAX|PHL|00:15|10:15|No|TAROM|mon thu fri|EA30|155
+AD43|JFK|AMM|8:15|10:15|No|Belavia|thu sun |B763|400
+AD44|JFK|ANU|11:00|15:00|No|SmartWings|mon thu sat|B742|190
+AD45|JFK|AUH|18:00|21:00|No|Lauda Motion|mon tue wed thu fri|EA32|230
+AD46|JFK|AUS|1:15|10:15|No|Lauda Motion|mon thu sat|B752|350
+AD47|JFK|BCN|23:15|00:15|Yes|Enter Air|tue fri sat|AN32|425
+AD48|JFK|BDA|1:00|10:00|No|AirBaltic|fri|AN30|385
+AD49|JFK|BNA|9:30|17:30|No|Finnair|mon wed fri sun|CRJ1|100
+AD50|JFK|BOS|10:30|12:30|No|SmartWings|thu sat |B712|295
+AD51|JFK|BWI|00:30|7:30|No|Icelandair Group|thu sat |B773|130
+AD52|JFK|CCS|00:00|12:00|No|Air Astana|mon wed |B762|295
+AD53|JFK|CDG|8:00|19:00|No|Eurowings|tue thu sat sun|A338|485
+AD54|JFK|CLE|5:15|16:15|No|Finnair|mon thu fri|A19N|505
+AD55|JFK|CLT|00:30|8:30|No|Lauda Motion|sat|B37M|355
+AD56|JFK|CMH|20:00|3:00|Yes|EasyJet|tue wed |F100|530
+AD57|JFK|CUN|3:00|4:00|No|Air Serbia|thu fri |B748|405
+AD58|JFK|CVG|19:30|3:30|Yes|Red Wings Airlines|tue wed |A140|510
+AD59|JFK|DCA|3:00|14:00|No|Adria Airways|mon tue |A318|130
+AD60|JFK|DFW|22:30|8:30|Yes|Blue Air|mon tue thu|B742|525
+AD61|JFK|DOH|15:15|21:15|No|WOW air|mon thu fri|B743|260
+AD62|JFK|DUB|15:45|22:45|No|Air Italy|mon tue thu|B744|520
+AD63|JFK|DUS|10:00|15:00|No|Nordwind Airlines|mon tue sun|E75L|110
+AD64|JFK|EZE|19:15|6:15|Yes|Blue Air|mon tue sun|B762|205
+AD65|JFK|FCO|00:00|8:00|No|SAS Group|wed sun |E135|235
+AD66|JFK|GIG|4:30|13:30|No|Virgin Atlantic|fri sun |B78X|375
+AD67|JFK|GRU|00:45|3:45|No|Air Italy|mon thu fri|B764|165
+AD68|JFK|GYE|00:00|9:00|No|Ryanair|tue wed |B763|320
+AD69|JFK|HEL|00:45|11:45|No|LOT Polish Airlines|fri sat |AN12|520
+AD70|JFK|HKG|10:45|14:45|No|Virgin Atlantic|fri|B732|110
+AD71|JFK|IND|13:30|17:30|No|Ryanair|wed sat |B748|430
+AD72|JFK|LAS|9:00|10:00|No|Aegean Airlines|mon wed fri sun|B37M|535
+AD73|JFK|LAX|16:00|21:00|No|Ural Airlines|tue fri sat|B763|370
+AD74|JFK|LCY|9:45|12:45|No|Aeroflot Group|tue fri sat|A158|225
+AD75|JFK|LHR|9:30|15:30|No|Ryanair|fri|B741|545
+AD76|JFK|LIM|18:30|19:30|No|Adria Airways|tue sun |B763|345
+AD77|JFK|MAD|23:30|8:30|Yes|Croatia Airlines|mon tue thu|B743|235
+AD78|JFK|MAN|12:30|17:30|No|Alitalia|thu sat |B762|515
+AD79|JFK|MCO|5:30|11:30|No|easyJet|mon sat |A140|285
+AD80|JFK|MIA|22:15|6:15|Yes|flybe|thu sun |AN72|140
+AD81|JFK|MXP|9:30|10:30|No|Belavia|mon thu |BCS1|550
+AD82|JFK|NRT|19:45|22:45|No|TAP Air Portugal|fri sun |B741|145
+AD83|JFK|ORD|12:15|14:15|No|Pegas Fly|mon wed sun|E195|215
+AD84|JFK|ORF|4:30|5:30|No|Swiss International Air Lines|tue wed thu fri|BCS3|430
+AD85|JFK|ORY|8:00|14:00|No|Air France|thu|B736|545
+AD86|JFK|PAP|11:15|22:15|No|Air Astana|thu|A332|355
+AD87|JFK|PHX|21:30|00:30|Yes|Volotea|wed sat sun|AN24|260
+AD88|JFK|PIT|14:45|16:45|No|Finnair|tue fri sat|E75S|470
+AD89|JFK|RDU|4:45|9:45|No|Lufthansa|mon tue wed|B788|105
+AD90|JFK|SAN|8:15|19:15|No|Air Europa|mon tue |AN24|435
+AD91|JFK|SCL|11:15|22:15|No|flybe|mon fri |B74S|510
+AD92|JFK|SEA|13:00|23:00|No|Azur Air|mon wed sun|E290|160
+AD93|JFK|SFO|16:00|00:00|Yes|Luxair|mon tue wed|A318|515
+AD94|JFK|SJO|00:45|5:45|No|SAS Group|mon thu fri|F28|230
+AD95|JFK|SJU|17:30|21:30|No|Nordwind Airlines|mon tue fri|B764|360
+AD96|JFK|STT|21:00|00:00|Yes|Air Malta|mon tue wed thu fri|A306|200
+AD97|JFK|SXM|1:30|2:30|No|Ural Airlines|thu sun |A319|515
+AD98|JFK|TPA|13:00|16:00|No|Luxair|tue fri sat|A19N|165
+AE00|JFK|TXL|19:45|4:45|Yes|Ryanair|tue|B741|390
+AE01|JFK|YUL|00:45|10:45|No|Jet2.com|wed|AN30|405
+AE02|JFK|YYC|1:45|2:45|No|TAROM|mon tue thu|A20N|165
+AE03|JFK|YYZ|19:00|22:00|No|EasyJet|wed sat |A148|155
+AE04|JFK|ZRH|10:15|14:15|No|UTair Aviation|fri|EA34|145
+AE05|JLN|DFW|2:00|5:00|No|TAROM|mon wed |B712|275
+AE06|JNB|LHR|2:00|8:00|No|Ural Airlines|tue thu |A359|150
+AE07|JNU|KTN|13:00|15:00|No|Belavia|tue sun |A342|240
+AE08|JUL|AQP|8:45|9:45|No|Icelandair Group|mon wed sat|B74S|250
+AE09|KHH|NRT|22:30|6:30|Yes|Turkish Airlines|thu|BCS3|205
+AE10|KIN|MIA|16:45|22:45|No|Swiss International Air Lines|sun|B3XM|485
+AE11|KIX|HNL|17:00|2:00|Yes|Air Europa|mon thu |A345|205
+AE12|KOA|LAX|16:15|2:15|Yes|TAP Air Portugal|mon tue wed thu fri|A342|445
+AE13|KOA|OAK|2:00|6:00|No|Air Astana|mon thu sat|B739|300
+AE14|KOA|PHX|8:00|15:00|No|Ural Airlines|tue wed thu fri|AN30|275
+AE15|KOA|SJC|9:00|19:00|No|Jet2.com|mon tue fri|AN30|215
+AE16|KTN|JNU|20:00|23:00|No|AirBaltic|tue wed thu fri|A339|195
+AE17|KTN|SEA|21:45|23:45|No|easyJet|mon thu sat|E145|395
+AE18|KUL|BKK|00:00|5:00|No|Azerbaijan Airlines|tue sun |B744|400
+AE19|KUL|CDG|21:30|8:30|Yes|Lufthansa|mon tue wed|A359|290
+AE20|KUL|FRA|17:00|19:00|No|Jet2.com|wed fri |B77L|160
+AE21|KUL|LGK|20:15|5:15|Yes|Air Serbia|wed sun |AN28|220
+AE22|KUL|LHR|17:45|1:45|Yes|SmartWings|mon wed fri sun|EA34|270
+AE23|KUL|NRT|13:30|18:30|No|Luxair|tue wed sat|CRJ1|510
+AE24|KUL|PEN|13:45|19:45|No|Air Italy|sun|E75L|185
+AE25|KUL|SIN|3:30|11:30|No|WOW air|tue wed sat|A338|395
+AE26|KWI|LHR|13:15|00:15|Yes|Red Wings Airlines|tue sun |EA32|270
+AE27|LAS|CLT|1:15|6:15|No|Ryanair|wed thu |B722|335
+AE28|LAS|DCA|9:15|17:15|No|Air Malta|fri sun |B734|115
+AE29|LAS|DFW|23:00|7:00|Yes|easyJet|tue wed sat|F100|160
+AE30|LAS|JFK|20:45|6:45|Yes|Virgin Atlantic|mon fri |AN72|275
+AE31|LAS|LAX|3:30|8:30|No|TAROM|wed thu |E290|485
+AE32|LAS|LGW|7:00|17:00|No|Air Malta|mon tue fri|B736|230
+AE33|LAS|LHR|17:00|2:00|Yes|easyJet|mon sat |B763|265
+AE34|LAS|MIA|2:00|11:00|No|WOW air|mon sat |EA32|250
+AE35|LAS|ORD|21:45|5:45|Yes|Wizz Air|wed fri |E170|130
+AE36|LAS|PHL|17:00|1:00|Yes|easyJet|mon wed sat|B737|225
+AE37|LAS|PHX|00:15|2:15|No|Air Italy|tue sun |A388|365
+AE38|LAS|YEG|19:00|00:00|Yes|SmartWings|wed sun |B772|250
+AE39|LAS|YVR|15:15|00:15|Yes|Ryanair|tue fri sat|F28|275
+AE40|LAS|YYC|19:00|22:00|No|Red Wings Airlines|mon tue |E135|310
+AE41|LAS|YYZ|11:30|16:30|No|AirBaltic|mon wed sat|A21N|400
+AE42|LAW|DFW|5:00|12:00|No|Belavia|tue thu |A310|415
+AE43|LAX|ABQ|00:45|6:45|No|flybe|wed thu |AN30|275
+AE44|LAX|ANC|15:30|1:30|Yes|Air Serbia|wed fri |B763|500
+AE45|LAX|AUS|16:45|1:45|Yes|Red Wings Airlines|thu|B788|455
+AE46|LAX|BDL|4:30|6:30|No|Icelandair Group|wed fri |B721|200
+AE47|LAX|BNA|4:30|14:30|No|Swiss International Air Lines|wed thu |EA32|425
+AE48|LAX|BNE|1:15|8:15|No|Air Astana|mon tue fri|AN12|345
+AE49|LAX|BOS|16:45|00:45|Yes|Bulgaria Air|fri|B722|410
+AE50|LAX|CLT|4:45|8:45|No|Jet2.com|tue wed thu fri|B721|460
+AE51|LAX|CMH|18:45|3:45|Yes|UTair Aviation|wed sat |B753|360
+AE52|LAX|DCA|22:15|23:15|No|Enter Air|mon tue fri|AN30|175
+AE53|LAX|DEN|4:00|5:00|No|Jet2.com|tue fri sat|B732|335
+AE54|LAX|DFW|16:00|21:00|No|EasyJet|mon thu fri|CRJX|195
+AE55|LAX|DUS|3:30|9:30|No|Volotea|wed fri |B733|505
+AE56|LAX|ELP|23:15|8:15|Yes|flybe|thu fri |A359|330
+AE57|LAX|EUG|3:00|14:00|No|Finnair|mon tue thu|A321|495
+AE58|LAX|FAT|00:15|5:15|No|Blue Air|fri sun |AN32|360
+AE59|LAX|GDL|19:45|20:45|No|Nordwind Airlines|wed fri |AN32|130
+AE60|LAX|GRU|8:30|11:30|No|Aeroflot Group|wed thu |CRJ9|395
+AE61|LAX|HKG|22:15|6:15|Yes|Air Europa|mon thu sat|EA32|395
+AE62|LAX|HNL|7:30|9:30|No|Croatia Airlines|mon tue sat|B74R|450
+AE63|LAX|IAD|00:30|8:30|No|Lufthansa|wed fri |A339|225
+AE64|LAX|IAH|17:45|18:45|No|Air Serbia|thu|CRJX|375
+AE65|LAX|IND|2:15|9:15|No|Pegasus Airlines|tue sun |AN72|520
+AE66|LAX|JFK|18:45|22:45|No|Bulgaria Air|wed fri |A148|125
+AE67|LAX|KOA|7:45|14:45|No|Jet2.com|tue wed thu fri|B741|500
+AE68|LAX|LAS|12:15|17:15|No|Nordwind Airlines|tue wed sat|E190|115
+AE69|LAX|LHR|12:30|23:30|No|Volotea|tue wed |B789|235
+AE70|LAX|LIH|23:15|00:15|Yes|TAROM|mon wed fri|A19N|370
+AE71|LAX|LIM|6:30|14:30|No|Air Italy|sat|EA33|315
+AE72|LAX|MAD|00:00|11:00|No|Lauda Motion|tue wed sat|E290|275
+AE73|LAX|MCO|12:00|13:00|No|Alitalia|mon tue sat|B721|335
+AE74|LAX|MEL|2:15|7:15|No|EasyJet|mon|B773|505
+AE75|LAX|MEX|1:15|8:15|No|LOT Polish Airlines|sun|B733|115
+AE76|LAX|MFR|18:30|2:30|Yes|Turkish Airlines|sat|AN28|115
+AE77|LAX|MIA|4:45|10:45|No|Air Serbia|wed thu |E75L|325
+AE78|LAX|MMH|00:45|6:45|No|flybe|mon tue sun|F70|405
+AE79|LAX|MRY|5:45|14:45|No|Azerbaijan Airlines|wed thu |EA32|330
+AE80|LAX|NAN|17:45|2:45|Yes|Pegas Fly|tue sat |B779|505
+AE81|LAX|NRT|22:45|3:45|Yes|Belavia|tue thu sat sun|EA30|295
+AE82|LAX|OGG|2:15|11:15|No|Air Astana|mon wed sun|B772|320
+AE83|LAX|OKC|10:30|11:30|No|Air Serbia|fri|BCS3|125
+AE84|LAX|ORD|12:15|20:15|No|Nordwind Airlines|thu sun |E190|550
+AE85|LAX|PBI|10:45|17:45|No|Aeroflot Group|wed fri |F27|285
+AE86|LAX|PDX|1:00|2:00|No|Pegasus Airlines|tue fri |A158|235
+AE87|LAX|PHL|9:30|20:30|No|TAP Air Portugal|mon tue sat|B733|295
+AE88|LAX|PHX|22:00|4:00|Yes|flybe|wed sun |E170|255
+AE89|LAX|PIT|3:45|11:45|No|Azerbaijan Airlines|mon tue |B764|210
+AE90|LAX|PPT|5:45|6:45|No|Red Wings Airlines|mon tue thu|AN26|195
+AE91|LAX|PVG|17:45|1:45|Yes|WOW air|fri|B37M|280
+AE92|LAX|RDM|5:30|16:30|No|Azerbaijan Airlines|wed sat |B732|275
+AE93|LAX|RDU|00:30|5:30|No|Icelandair Group|wed sat sun|A332|400
+AE94|LAX|RNO|11:45|18:45|No|LOT Polish Airlines|thu sun |F70|195
+AE95|LAX|SAF|10:45|18:45|No|TAP Air Portugal|mon tue |B77W|185
+AE96|LAX|SAN|19:15|1:15|Yes|easyJet|mon tue wed|B773|105
+AE97|LAX|SEA|3:45|9:45|No|Air Malta|mon tue |B753|470
+AE98|LAX|SFO|14:30|00:30|Yes|easyJet|mon wed fri|A20N|550
+AF00|LAX|SJC|5:15|10:15|No|Air France|wed fri |AN24|245
+AF01|LAX|SJD|12:00|16:00|No|Virgin Atlantic|wed|E195|515
+AF02|LAX|SLC|19:45|5:45|Yes|Virgin Atlantic|thu sat |AN26|155
+AF03|LAX|SMF|15:45|16:45|No|Alitalia|fri sat |E290|385
+AF04|LAX|STL|6:45|11:45|No|Azerbaijan Airlines|sat|AN72|185
+AF05|LAX|STS|20:15|3:15|Yes|TAP Air Portugal|tue wed |B788|515
+AF06|LAX|SYD|12:30|13:30|No|Air Astana|mon wed fri sun|A306|445
+AF07|LAX|TUS|10:45|20:45|No|Air Astana|tue thu |B39M|380
+AF08|LAX|XNA|00:00|11:00|No|Belavia|thu|A321|110
+AF09|LAX|YEG|00:45|11:45|No|AirBaltic|mon tue |A318|285
+AF10|LAX|YVR|2:00|8:00|No|Alitalia|mon thu sat|A19N|165
+AF11|LAX|YYC|17:15|20:15|No|Air Astana|fri sun |B753|370
+AF12|LAX|YYZ|16:00|3:00|Yes|Blue Air|mon tue wed thu fri|CRJ1|490
+AF13|LBA|LHR|1:30|8:30|No|Jet2.com|fri sat |B738|440
+AF14|LBB|DFW|9:30|10:30|No|SmartWings|sun|A35K|130
+AF15|LCA|LHR|9:15|10:15|No|Ukraine International Airlines|mon wed fri sun|CRJ2|105
+AF16|LCH|DFW|4:15|9:15|No|Finnair|mon tue wed thu fri|B721|390
+AF17|LEX|CLT|7:45|9:45|No|Nordwind Airlines|tue sat |A343|215
+AF18|LEX|DFW|8:30|10:30|No|Lufthansa|mon tue wed|EA34|460
+AF19|LEX|ORD|9:00|16:00|No|Blue Air|mon tue sun|A21N|130
+AF20|LFT|DFW|5:30|11:30|No|LOT Polish Airlines|wed sun |E195|405
+AF21|LGA|BNA|8:45|18:45|No|Jet2.com|mon thu |B743|455
+AF22|LGA|BOS|4:30|11:30|No|Blue Air|tue fri sat|AN24|165
+AF23|LGA|CHO|22:30|2:30|Yes|Finnair|wed fri |E295|395
+AF24|LGA|CLT|17:30|00:30|Yes|Red Wings Airlines|mon fri |E195|225
+AF25|LGA|CMH|5:00|9:00|No|Icelandair Group|mon tue fri|B773|115
+AF26|LGA|DAY|8:00|10:00|No|Bulgaria Air|fri sun |A345|510
+AF27|LGA|DCA|3:30|10:30|No|SAS Group|tue thu |EA34|145
+AF28|LGA|DFW|6:15|17:15|No|Air Serbia|mon thu |EA34|215
+AF29|LGA|DTW|14:00|15:00|No|AirBaltic|fri sun |B743|390
+AF30|LGA|GSO|00:45|2:45|No|Alitalia|tue thu sat sun|EA31|215
+AF31|LGA|ILM|7:15|11:15|No|Air France|mon thu sat|AN72|220
+AF32|LGA|LIT|6:15|7:15|No|Ural Airlines|tue thu sat sun|B779|420
+AF33|LGA|MIA|14:00|16:00|No|Turkish Airlines|mon tue thu|B739|510
+AF34|LGA|ORD|10:30|16:30|No|Air Europa|mon tue sun|F70|275
+AF35|LGA|ORF|11:00|19:00|No|Pegasus Airlines|tue|E75S|530
+AF36|LGA|PBI|10:45|13:45|No|Bulgaria Air|tue fri sat|B744|205
+AF37|LGA|PHL|2:45|12:45|No|Air Astana|tue|B732|450
+AF38|LGA|PIT|2:30|8:30|No|easyJet|wed sat |B764|385
+AF39|LGA|RDU|12:45|13:45|No|Nordwind Airlines|mon tue |A225|370
+AF40|LGA|RIC|16:15|23:15|No|Luxair|mon tue wed thu fri|B789|160
+AF41|LGA|ROA|3:30|11:30|No|flybe|fri|B77W|550
+AF42|LGA|SDF|00:30|9:30|No|Lauda Motion|fri sun |B712|470
+AF43|LGA|STL|11:45|14:45|No|Ural Airlines|mon sun |E145|405
+AF44|LGA|TYS|22:30|4:30|Yes|Swiss International Air Lines|tue thu |F70|490
+AF45|LGA|XNA|17:30|23:30|No|LOT Polish Airlines|mon wed |B77W|190
+AF46|LGA|YUL|00:30|8:30|No|Blue Air|mon sat |B744|445
+AF47|LGA|YYZ|17:00|21:00|No|Azerbaijan Airlines|fri|A140|145
+AF48|LGB|PDX|2:15|11:15|No|TAP Air Portugal|mon sat |A338|225
+AF49|LGB|PHX|1:00|8:00|No|Luxair|tue wed thu fri|B77L|155
+AF50|LGB|SEA|10:30|20:30|No|Red Wings Airlines|mon tue thu|B735|520
+AF51|LGK|KUL|15:15|20:15|No|Wizz Air|tue|B762|255
+AF52|LGW|LAS|10:15|14:15|No|Air Italy|wed thu |A332|215
+AF53|LGW|MCO|5:15|13:15|No|Ryanair|tue sat |B735|530
+AF54|LGW|TPA|12:30|18:30|No|Icelandair Group|mon tue sat|B737|375
+AF55|LHE|AUH|00:45|6:45|No|Pegasus Airlines|mon tue wed|AN32|330
+AF56|LHR|ABZ|19:00|1:00|Yes|Blue Air|mon thu sun|AN26|345
+AF57|LHR|ACC|3:00|5:00|No|Air Astana|tue|BCS1|360
+AF58|LHR|AGP|10:15|18:15|No|Icelandair Group|tue sat |B741|255
+AF59|LHR|AMS|3:45|5:45|No|easyJet|tue sun |E75S|410
+AF60|LHR|ARN|12:45|22:45|No|Air France|tue sun |B721|465
+AF61|LHR|ATH|21:45|00:45|Yes|Aeroflot Group|tue thu |E145|540
+AF62|LHR|ATL|12:45|19:45|No|Ellinair|tue fri |EA34|450
+AF63|LHR|AUH|23:00|5:00|Yes|Ural Airlines|mon tue thu|A320|185
+AF64|LHR|AUS|22:45|5:45|Yes|WOW air|fri|F27|180
+AF65|LHR|BAH|18:15|5:15|Yes|Adria Airways|wed fri |F28|400
+AF66|LHR|BCN|12:30|22:30|No|Turkish Airlines|wed sat |AN32|235
+AF67|LHR|BGO|19:45|6:45|Yes|Jet2.com|mon fri |E290|545
+AF68|LHR|BHD|4:45|10:45|No|Luxair|mon tue sun|CRJ2|290
+AF69|LHR|BLQ|21:15|5:15|Yes|Air Astana|wed sun |B779|505
+AF70|LHR|BLR|17:30|18:30|No|Volotea|wed sun |E75L|195
+AF71|LHR|BOM|20:15|21:15|No|Virgin Atlantic|mon tue fri|B77L|275
+AF72|LHR|BOS|14:00|16:00|No|Turkish Airlines|mon wed sun|A320|250
+AF73|LHR|BRU|22:15|2:15|Yes|Jet2.com|mon sat |AN24|505
+AF74|LHR|BSL|8:15|14:15|No|Air Astana|fri sat |F27|170
+AF75|LHR|BUD|17:45|22:45|No|Luxair|mon wed sat|E195|120
+AF76|LHR|BWI|4:15|8:15|No|Swiss International Air Lines|mon wed fri sun|AN24|250
+AF77|LHR|CDG|6:45|10:45|No|Croatia Airlines|fri sun |B735|440
+AF78|LHR|CLT|21:30|23:30|No|UTair Aviation|mon thu fri|A342|280
+AF79|LHR|CPH|17:00|18:00|No|Eurowings|mon fri |B712|470
+AF80|LHR|CPT|5:45|11:45|No|LOT Polish Airlines|mon wed |B722|480
+AF81|LHR|DEL|1:00|7:00|No|Pegasus Airlines|mon wed sat|E75L|120
+AF82|LHR|DEN|4:15|5:15|No|Enter Air|mon tue fri|B37M|500
+AF83|LHR|DFW|20:45|21:45|No|WOW air|thu sat |F28|425
+AF84|LHR|DUB|6:00|15:00|No|Pegasus Airlines|mon tue wed|E75L|175
+AF85|LHR|DUS|15:15|00:15|Yes|Air Astana|mon tue wed|E290|465
+AF86|LHR|DXB|19:15|3:15|Yes|Ryanair|tue fri sat|AN32|465
+AF87|LHR|EBB|13:15|18:15|No|Ural Airlines|mon tue wed thu fri|CRJ9|160
+AF88|LHR|EDI|00:00|2:00|No|Swiss International Air Lines|mon sun |EA34|110
+AF89|LHR|EWR|00:00|4:00|No|Eurowings|mon tue wed|EA30|240
+AF90|LHR|FCO|5:30|10:30|No|Azur Air|thu sat |EA31|245
+AF91|LHR|FRA|16:00|3:00|Yes|Lauda Motion|mon sun |B739|480
+AF92|LHR|GIB|20:45|6:45|Yes|TAROM|mon wed sun|A338|145
+AF93|LHR|GLA|17:30|4:30|Yes|Finnair|wed thu |B744|500
+AF94|LHR|GOT|17:00|21:00|No|Ryanair|mon thu fri|CRJ7|165
+AF95|LHR|GVA|13:30|23:30|No|Eurowings|tue sun |CRJ2|310
+AF96|LHR|HAJ|10:45|21:45|No|Ryanair|mon wed fri sun|B743|425
+AF97|LHR|HAM|9:00|19:00|No|UTair Aviation|fri sat |B788|470
+AF98|LHR|HEL|18:00|00:00|Yes|SmartWings|mon thu sat|B74R|490
+AG00|LHR|HYD|13:30|14:30|No|Red Wings Airlines|thu fri |B38M|145
+AG01|LHR|IAD|20:45|7:45|Yes|Air Astana|thu fri |B735|305
+AG02|LHR|IAH|00:30|9:30|No|Enter Air|wed sun |E145|285
+AG03|LHR|IST|00:00|3:00|No|Pegas Fly|mon sat |E290|290
+AG04|LHR|JFK|16:15|23:15|No|TAP Air Portugal|tue wed sat|A19N|235
+AG05|LHR|JNB|16:45|19:45|No|Swiss International Air Lines|tue sat |A332|480
+AG06|LHR|KUL|12:15|13:15|No|Finnair|tue thu |A20N|520
+AG07|LHR|KWI|1:15|6:15|No|Croatia Airlines|mon tue fri|E135|150
+AG08|LHR|LAS|2:30|10:30|No|Air Astana|mon thu fri|B3XM|370
+AG09|LHR|LAX|00:45|3:45|No|Aegean Airlines|thu sat |A19N|185
+AG10|LHR|LBA|2:45|9:45|No|Azerbaijan Airlines|tue wed sat|EA34|405
+AG11|LHR|LCA|00:15|7:15|No|Red Wings Airlines|thu fri |A19N|390
+AG12|LHR|LIN|20:15|21:15|No|Aegean Airlines|wed fri |B744|155
+AG13|LHR|LIS|9:45|11:45|No|Red Wings Airlines|thu sat |B3XM|500
+AG14|LHR|LUX|23:30|2:30|Yes|Lufthansa|mon tue wed|A19N|325
+AG15|LHR|LYS|15:30|17:30|No|Air France|tue|EA33|330
+AG16|LHR|MAA|4:15|13:15|No|Ryanair|tue fri |A321|105
+AG17|LHR|MAN|19:15|22:15|No|flybe|thu fri |EA31|325
+AG18|LHR|MIA|8:45|12:45|No|Air France|wed sat |E75S/L|425
+AG19|LHR|MRS|8:30|9:30|No|Ryanair|tue sun |A343|115
+AG20|LHR|MUC|4:00|13:00|No|Icelandair Group|mon wed |A21N|115
+AG21|LHR|MXP|15:45|19:45|No|LOT Polish Airlines|mon|F27|545
+AG22|LHR|NBO|00:45|7:45|No|Ellinair|wed fri |B721|535
+AG23|LHR|NCE|6:45|12:45|No|Ellinair|thu sat |E195|135
+AG24|LHR|NCL|6:15|9:15|No|easyJet|tue wed |EA33|495
+AG25|LHR|ORD|5:30|15:30|No|Virgin Atlantic|fri|AN26|525
+AG26|LHR|OSL|1:00|12:00|No|Air Astana|mon tue wed|B38M|335
+AG27|LHR|OTP|12:15|17:15|No|TAROM|wed sun |A343|465
+AG28|LHR|PHL|16:30|2:30|Yes|WOW air|sun|BCS3|425
+AG29|LHR|PHX|00:00|11:00|No|Wizz Air|mon sun |E195|350
+AG30|LHR|PRG|19:45|00:45|Yes|Adria Airways|mon tue fri|AN24|515
+AG31|LHR|PSA|15:30|16:30|No|Wizz Air|mon wed fri sun|A306|440
+AG32|LHR|RDU|11:30|20:30|No|Volotea|mon thu fri|B78X|405
+AG33|LHR|RTM|11:15|18:15|No|Ukraine International Airlines|thu sun |CRJ7|170
+AG34|LHR|SAN|18:15|00:15|Yes|Aeroflot Group|wed sat sun|CRJ1|450
+AG35|LHR|SEA|12:15|17:15|No|Red Wings Airlines|thu|B779|455
+AG36|LHR|SFO|16:00|23:00|No|Pegasus Airlines|tue thu sat sun|B743|260
+AG37|LHR|SOF|20:15|1:15|Yes|WOW air|mon wed fri|A339|430
+AG38|LHR|STR|00:15|3:15|No|SAS Group|tue wed thu fri|A19N|530
+AG39|LHR|SVG|10:15|21:15|No|Ellinair|thu sun |E170|440
+AG40|LHR|TLS|19:45|22:45|No|Finnair|mon tue wed|EA31|240
+AG41|LHR|TXL|1:45|7:45|No|Azur Air|mon thu fri|B37M|270
+AG42|LHR|VCE|15:30|19:30|No|Pegas Fly|tue fri |B748|290
+AG43|LHR|VIE|10:15|13:15|No|Croatia Airlines|mon tue sun|B741|220
+AG44|LHR|WAW|13:30|16:30|No|SmartWings|thu fri |E135|540
+AG45|LHR|YUL|1:00|2:00|No|Air Europa|fri|A21N|295
+AG46|LHR|YVR|11:30|17:30|No|EasyJet|mon wed |F27|455
+AG47|LHR|YYC|19:30|6:30|Yes|easyJet|mon tue thu|AN32|260
+AG48|LHR|YYZ|12:30|19:30|No|Adria Airways|tue fri sat|AN26|520
+AG49|LHR|ZAG|19:30|2:30|Yes|Finnair|mon wed fri sun|CRJ7|465
+AG50|LHR|ZRH|00:30|8:30|No|Croatia Airlines|wed sun |B778|495
+AG51|LIH|LAX|7:30|12:30|No|Lufthansa|thu|B38M|495
+AG52|LIH|OAK|00:00|8:00|No|Eurowings|tue wed |AN26|440
+AG53|LIH|PHX|4:15|6:15|No|Lauda Motion|mon wed sat|E290|525
+AG54|LIH|SJC|10:30|13:30|No|WOW air|mon thu fri|A346|455
+AG55|LIM|DFW|17:45|00:45|Yes|Eurowings|fri|A158|520
+AG56|LIM|JFK|9:45|18:45|No|Luxair|wed fri |B732|275
+AG57|LIM|LAX|17:15|00:15|Yes|Pegasus Airlines|mon sat |AN12|220
+AG58|LIM|MIA|00:30|3:30|No|Lauda Motion|mon thu sun|B78X|440
+AG59|LIM|SCL|7:15|11:15|No|Alitalia|tue thu sat sun|A140|500
+AG60|LIN|LHR|19:30|5:30|Yes|WOW air|mon fri |B722|305
+AG61|LIR|CLT|3:45|6:45|No|SAS Group|mon wed fri sun|F28|230
+AG62|LIR|DFW|1:45|5:45|No|Aegean Airlines|fri|A306|410
+AG63|LIR|MIA|00:30|6:30|No|Icelandair Group|fri|E135|150
+AG64|LIR|SJO|22:00|5:00|Yes|Air Europa|wed|B720|450
+AG65|LIS|LHR|11:15|21:15|No|Lauda Motion|mon tue wed|B788|425
+AG66|LIS|PHL|23:45|6:45|Yes|SAS Group|mon wed |B712|510
+AG67|LIT|CLT|2:00|3:00|No|Ryanair|mon tue fri|A346|310
+AG68|LIT|DCA|15:45|21:45|No|Adria Airways|mon thu sat|E295|515
+AG69|LIT|DFW|19:45|23:45|No|Azerbaijan Airlines|tue fri |A320|455
+AG70|LIT|LGA|21:30|22:30|No|Pegasus Airlines|wed|E295|120
+AG71|LIT|ORD|11:15|18:15|No|Red Wings Airlines|mon tue sat|A332|265
+AG72|LPA|MAD|13:30|22:30|No|LOT Polish Airlines|mon thu sat|B74S|400
+AG73|LPB|VVI|12:00|18:00|No|Aeroflot Group|mon|AN72|490
+AG74|LRD|DFW|11:30|14:30|No|Swiss International Air Lines|tue|B772|495
+AG75|LRM|MIA|13:00|18:00|No|Jet2.com|mon fri |AN72|490
+AG76|LSE|ORD|10:00|16:00|No|TAP Air Portugal|mon thu sun|B3XM|115
+AG77|LUX|LHR|18:15|3:15|Yes|Ryanair|tue wed thu fri|B742|130
+AG78|LYH|CLT|2:45|9:45|No|Air Astana|mon tue wed|B74R|345
+AG79|LYS|LHR|4:45|12:45|No|Azerbaijan Airlines|mon|B721|410
+AG80|MAA|LHR|5:45|10:45|No|Air Italy|sun|E170|355
+AG81|MAD|BOS|18:00|22:00|No|UTair Aviation|fri|B748|190
+AG82|MAD|DFW|9:00|17:00|No|WOW air|tue|E145|430
+AG83|MAD|JFK|9:30|14:30|No|AirBaltic|thu sun |CRJ2|230
+AG84|MAD|LAX|21:45|6:45|Yes|TAROM|thu sat |B722|430
+AG85|MAD|MIA|6:15|15:15|No|Lufthansa|sun|A318|285
+AG86|MAD|ORD|5:45|10:45|No|Turkish Airlines|mon|B738|270
+AG87|MAD|PHL|2:00|13:00|No|Lauda Motion|wed|A332|360
+AG88|MAF|DFW|4:45|13:45|No|Alitalia|mon wed |CRJX|445
+AG89|MAN|HEL|8:45|12:45|No|Eurowings|thu fri |B741|350
+AG90|MAN|JFK|7:45|14:45|No|Bulgaria Air|mon thu sat|F27|535
+AG91|MAN|LHR|17:00|3:00|Yes|Swiss International Air Lines|tue sat |E195|495
+AG92|MAN|ORD|23:30|5:30|Yes|Air Italy|fri|B712|310
+AG93|MAN|PHL|11:15|20:15|No|Finnair|thu fri |B39M|480
+AG94|MAO|MIA|19:15|20:15|No|UTair Aviation|wed sat sun|E170|450
+AG95|MAR|MIA|11:15|20:15|No|Lufthansa|wed|EA33|290
+AG96|MBJ|CLT|00:00|3:00|No|AirBaltic|mon tue sat|A338|395
+AG97|MBJ|DFW|19:00|22:00|No|UTair Aviation|mon tue thu|EA32|515
+AG98|MBJ|MIA|7:30|11:30|No|Air Europa|mon wed fri|B753|255
+AH00|MBJ|ORD|00:45|6:45|No|Swiss International Air Lines|tue wed sat|CRJ7|225
+AH01|MBJ|PHL|00:15|6:15|No|Adria Airways|wed sun |B744|390
+AH02|MCI|CLT|7:00|8:00|No|Icelandair Group|mon thu sat|E190|485
+AH03|MCI|DCA|13:45|15:45|No|AirBaltic|mon tue wed thu fri|B744|140
+AH04|MCI|DFW|2:00|11:00|No|AirBaltic|wed sat sun|A339|205
+AH05|MCI|ORD|00:30|11:30|No|Ukraine International Airlines|mon thu sat|A35K|330
+AH06|MCI|PHL|17:15|21:15|No|Eurowings|thu sat |A21N|290
+AH07|MCI|PHX|00:30|7:30|No|Lufthansa|tue sat |B74R|425
+AH08|MCI|SEA|4:45|11:45|No|Nordwind Airlines|mon wed fri|E135|215
+AH09|MCO|CLT|19:00|20:00|No|TAP Air Portugal|fri sun |CRJX|235
+AH10|MCO|DCA|10:00|16:00|No|Ellinair|wed sat sun|B744|195
+AH11|MCO|DFW|18:15|20:15|No|Adria Airways|thu sat |E170|140
+AH12|MCO|GRU|17:30|21:30|No|Swiss International Air Lines|mon thu sun|B762|320
+AH13|MCO|JFK|22:00|1:00|Yes|Red Wings Airlines|tue|B39M|195
+AH14|MCO|LAX|4:15|5:15|No|Lauda Motion|mon tue sun|EA33|135
+AH15|MCO|LGW|8:45|9:45|No|Air Italy|tue sun |B788|415
+AH16|MCO|MIA|23:00|9:00|Yes|TAROM|tue fri sat|B3XM|195
+AH17|MCO|ORD|9:30|20:30|No|Ural Airlines|mon wed |A333|395
+AH18|MCO|PHL|15:45|00:45|Yes|Icelandair Group|mon wed sun|B736|140
+AH19|MCO|PHX|11:00|18:00|No|Ellinair|tue wed thu fri|E75S/L|275
+AH20|MCO|SAN|4:15|7:15|No|Lufthansa|wed|AN24|550
+AH21|MCO|SEA|3:30|5:30|No|TAP Air Portugal|tue sat |A319|480
+AH22|MCO|YYZ|13:15|16:15|No|Pegas Fly|wed sun |B74R|185
+AH23|MCT|AUH|16:00|21:00|No|Pegas Fly|wed|CRJX|170
+AH24|MDE|MIA|1:15|3:15|No|TAROM|mon thu sat|AN24|140
+AH25|MDT|BOS|19:30|2:30|Yes|Virgin Atlantic|mon tue wed thu fri|E145|150
+AH26|MDT|CLT|20:15|00:15|Yes|Azerbaijan Airlines|mon wed sat|A359|445
+AH27|MDT|ORD|7:30|8:30|No|TAP Air Portugal|tue fri sat|F27|460
+AH28|MDT|PHL|23:00|7:00|Yes|Aegean Airlines|tue wed |CRJ7|360
+AH29|MEL|ADL|13:00|00:00|Yes|Pegasus Airlines|wed sun |AN30|470
+AH30|MEL|BNE|17:45|19:45|No|AirBaltic|tue wed sat|F100|385
+AH31|MEL|CBR|9:45|20:45|No|Pegasus Airlines|tue fri sat|B763|170
+AH32|MEL|LAX|19:15|00:15|Yes|Croatia Airlines|mon thu sat|AN26|385
+AH33|MEL|PER|14:15|23:15|No|Virgin Atlantic|sun|B733|530
+AH34|MEL|SYD|16:45|2:45|Yes|EasyJet|mon tue sun|A346|295
+AH35|MEM|CLT|12:15|18:15|No|SmartWings|fri|F100|175
+AH36|MEM|DCA|9:45|14:45|No|Adria Airways|tue|F28|180
+AH37|MEM|DFW|19:00|23:00|No|Icelandair Group|thu|B732|250
+AH38|MEM|MIA|18:00|1:00|Yes|Azerbaijan Airlines|mon tue wed thu fri|B734|535
+AH39|MEM|ORD|5:45|14:45|No|Swiss International Air Lines|tue|B764|220
+AH40|MEX|CLT|14:15|00:15|Yes|EasyJet|tue fri sat|B732|160
+AH41|MEX|DFW|6:45|16:45|No|Alitalia|tue sun |EA30|525
+AH42|MEX|LAX|6:45|16:45|No|Luxair|tue wed thu fri|F70|365
+AH43|MEX|MIA|6:00|15:00|No|SmartWings|tue fri sat|A388|385
+AH44|MEX|ORD|8:30|15:30|No|UTair Aviation|thu sun |B752|310
+AH45|MEX|PHX|18:00|5:00|Yes|Luxair|mon fri |B753|325
+AH46|MFE|DFW|6:30|12:30|No|Air Europa|wed fri |E75L|455
+AH47|MFR|LAX|17:00|19:00|No|Ellinair|mon wed fri sun|B748|365
+AH48|MGA|MIA|5:15|13:15|No|AirBaltic|tue fri |B788|425
+AH49|MGM|CLT|14:45|17:45|No|easyJet|mon sat |CRJ2|450
+AH50|MGM|DFW|16:00|17:00|No|Nordwind Airlines|thu sat |A388|140
+AH51|MHH|MIA|4:00|14:00|No|SAS Group|mon thu fri|E135|520
+AH52|MHK|DFW|18:30|4:30|Yes|Lufthansa|mon wed |A346|465
+AH53|MHK|ORD|10:30|14:30|No|Blue Air|tue fri |B778|130
+AH54|MHT|CLT|00:45|12:45|No|Swiss International Air Lines|mon thu |B763|105
+AH55|MHT|DCA|2:15|7:15|No|Finnair|mon tue |B77W|420
+AH56|MHT|PHL|12:30|23:30|No|AirBaltic|mon tue |AN12|220
+AH57|MIA|ANU|21:30|3:30|Yes|Virgin Atlantic|tue fri |B739|415
+AH58|MIA|ASU|23:00|10:00|Yes|flybe|tue wed thu fri|EA31|105
+AH59|MIA|ATL|5:30|10:30|No|Red Wings Airlines|tue sun |B753|155
+AH60|MIA|AUA|4:00|6:00|No|Bulgaria Air|tue fri sat|B74S|250
+AH61|MIA|BCN|23:15|6:15|Yes|UTair Aviation|mon thu sat|CRJ1|495
+AH62|MIA|BDA|23:00|9:00|Yes|SmartWings|mon wed |E75S/L|405
+AH63|MIA|BDL|16:00|00:00|Yes|TAP Air Portugal|mon sat |B762|160
+AH64|MIA|BGI|14:30|15:30|No|Aegean Airlines|fri sat |F70|330
+AH65|MIA|BHM|1:00|12:00|No|flybe|mon wed sun|A321|435
+AH66|MIA|BNA|00:15|9:15|No|Nordwind Airlines|tue thu |A388|190
+AH67|MIA|BOG|00:00|7:00|No|SAS Group|tue thu sat sun|E75L|405
+AH68|MIA|BOS|16:00|00:00|Yes|Blue Air|thu|E190|200
+AH69|MIA|BSB|7:15|10:15|No|Adria Airways|wed|E195|340
+AH70|MIA|BWI|22:30|9:30|Yes|Nordwind Airlines|thu|E135|405
+AH71|MIA|BZE|13:30|20:30|No|Pegasus Airlines|tue|B748|490
+AH72|MIA|CCS|00:15|9:15|No|Luxair|mon wed sat|B763|110
+AH73|MIA|CDG|2:00|3:00|No|SmartWings|thu fri |A20N|105
+AH74|MIA|CHS|00:30|3:30|No|Virgin Atlantic|mon tue |B772|300
+AH75|MIA|CLE|6:00|12:00|No|Air Europa|sun|AN12|385
+AH76|MIA|CLO|22:30|5:30|Yes|Croatia Airlines|mon tue |B721|495
+AH77|MIA|CLT|00:15|6:15|No|Azerbaijan Airlines|tue fri sat|B37M|245
+AH78|MIA|CMH|8:45|10:45|No|Lufthansa|tue fri |B763|515
+AH79|MIA|CNF|6:45|11:45|No|Blue Air|mon tue sun|A310|170
+AH80|MIA|CUN|1:15|11:15|No|Ukraine International Airlines|mon thu sat|F100|210
+AH81|MIA|CUR|21:15|1:15|Yes|TAROM|mon tue wed|E75S/L|315
+AH82|MIA|CVG|20:15|5:15|Yes|SAS Group|fri|EA31|525
+AH83|MIA|CWB|16:00|23:00|No|WOW air|fri|A346|180
+AH84|MIA|CZM|10:30|15:30|No|Pegasus Airlines|wed fri |B720|150
+AH85|MIA|DCA|13:00|14:00|No|EasyJet|tue sun |A225|330
+AH86|MIA|DEN|3:00|8:00|No|Lauda Motion|tue wed sat|F27|400
+AH87|MIA|DFW|4:45|5:45|No|Air Astana|mon thu |EA33|300
+AH88|MIA|DTW|15:30|18:30|No|LOT Polish Airlines|tue sun |B721|515
+AH89|MIA|DUS|23:30|8:30|Yes|flybe|thu fri |E190|440
+AH90|MIA|ELH|11:45|20:45|No|Pegasus Airlines|mon thu fri|A332|275
+AH91|MIA|EWR|5:00|10:00|No|Volotea|mon sun |B78X|370
+AH92|MIA|EYW|16:15|22:15|No|Adria Airways|sun|B748|455
+AH93|MIA|EZE|16:30|17:30|No|UTair Aviation|wed thu |B37M|525
+AH94|MIA|FDF|13:15|15:15|No|Volotea|mon thu fri|B778|330
+AH95|MIA|FPO|19:00|3:00|Yes|Jet2.com|mon|B773|435
+AH96|MIA|GCM|3:30|14:30|No|EasyJet|thu sun |B748|160
+AH97|MIA|GGT|12:30|14:30|No|Alitalia|mon wed sat|CRJ1|175
+AH98|MIA|GIG|15:45|1:45|Yes|Air Europa|mon tue wed thu fri|A321|525
+AI00|MIA|GND|19:15|21:15|No|WOW air|tue sat |CRJX|505
+AI01|MIA|GNV|7:00|12:00|No|SAS Group|mon tue wed thu fri|A158|395
+AI02|MIA|GRU|15:45|21:45|No|Wizz Air|mon tue thu|CRJ2|130
+AI03|MIA|GSO|9:30|20:30|No|Air France|thu sat |AN26|435
+AI04|MIA|GUA|22:45|23:45|No|Swiss International Air Lines|wed sun |B744|335
+AI05|MIA|GYE|19:15|23:15|No|Lufthansa|wed|A318|370
+AI06|MIA|IAD|8:30|17:30|No|Air Serbia|wed sun |A339|115
+AI07|MIA|IAH|23:30|7:30|Yes|Pegas Fly|fri sat |AN12|475

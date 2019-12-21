@@ -7,7 +7,6 @@ from model.Departure import Departure
 from model.Airplane import Airplane
 from model.Ticket import Ticket
 
-
 def load_customers():
     with open("data/customers") as f:
         content = f.readlines()
@@ -120,16 +119,16 @@ def load_departures(flights, airplanes):
 
         flight_pointer = [flight for flight in flights if flight.flight_number == departure_data[1]][0]
         flight_rows_cols = [airplane.rows_cols for airplane in airplanes if airplane.code == flight_pointer.airplane.code][0]
+        flight_capacity = [airplane.capacity for airplane in airplanes if airplane.code == flight_pointer.airplane.code][0]
 
-        flight_capacity = int(flight_rows_cols.strip().split('/')[0]) * int(flight_rows_cols.strip().split('/')[1])
+        #flight_capacity = int(flight_rows_cols.strip().split('/')[0]) * int(flight_rows_cols.strip().split('/')[1])
 
         departure = Departure(departure_data[0],  # id
                               departure_data[1],  # flight_number
                               departure_data[2],  # departure_date
                               departure_data[3],  # arrival_date
                               flight_pointer,  # flight_object_pointer
-                              flight_capacity,  # capacity
-                              int(departure_data[5]))  # seats_taken
+                              int(departure_data[4]))  # seats_taken
 
         departures.append(departure)
     return departures
@@ -181,5 +180,10 @@ def load_tickets(departures):
 
 def load_current_ticket_id():
     with open("data/current_ticket_id") as f:
+        content = f.readlines()
+    return int(content[0])
+
+def load_current_flight_id():
+    with open("data/current_flight_id") as f:
         content = f.readlines()
     return int(content[0])

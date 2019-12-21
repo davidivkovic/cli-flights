@@ -1,20 +1,20 @@
 from model.Ticket import Ticket
 from model.Enums import Role
-from main import users, departures, tickets, save_ticket_to_file, save_tickets_to_file, save_departures_to_file,\
-                departure_search_menu, validate_departure_id, print_ticket, datetime_input, validate_city,\
-                departure_datetime, save_customers_to_file, save_customer_to_file, print_departure_search_table, choose_seat
+from main import users, departures, tickets, save_ticket_to_file, save_tickets_to_file, save_departures_to_file, \
+    departure_search_menu, validate_departure_id, print_ticket, datetime_input, validate_city, \
+    departure_datetime, save_customers_to_file, save_customer_to_file, print_departure_search_table, choose_seat
 import globals
 import re
 import string
 from utility import *
 from datetime import *
-#TODO:
 
-#TODO: Also show checked-in tickets in unrealised tickets
 
-#redone
+# TODO: Also show checked-in tickets in unrealised tickets
+
+# redone
 def purchase_ticket(departure, first_name, last_name, phone, email):
-
+    #global current_ticket_id#, current_user
     globals.current_ticket_id += 1
     ticket_id = "AA" + f"{globals.current_ticket_id:04d}"  # takes a number and formats it into 4 digits with leading zeroes 2 --> 0002
 
@@ -31,13 +31,14 @@ def purchase_ticket(departure, first_name, last_name, phone, email):
 
     if registered_user is None:
         ticket = Ticket(ticket_id, departure, first_name.capitalize(), last_name.capitalize(), phone,
-                        email, "", "", "", current_date_str, "" , "No", globals.current_user.first_name + globals.current_user.last_name)
-                                                           # "" -> No seat assigned yet. "No" -> not q'd for deletion
-    else: # the user has not been found as registered in the system
+                        email, "", "", "", current_date_str, "", "No",
+                        globals.current_user.first_name + " " + globals.current_user.last_name)
+        # "" -> No seat assigned yet. "No" -> not q'd for deletion
+    else:  # the user has not been found as registered in the system
         ticket = Ticket(ticket_id, departure, user.first_name, user.last_name,
                         user.phone, user.email, user.passport_number,
                         user.nationality, user.gender, current_date_str, "", "No",
-                        globals.current_user.first_name + globals.current_user.last_name)   #current global user is the seller, we mark his name
+                        globals.current_user.first_name + " " + globals.current_user.last_name)  # current global user is the seller, we mark his name
 
     tickets.append(ticket)
     departure.seats_taken += 1
@@ -47,12 +48,35 @@ def purchase_ticket(departure, first_name, last_name, phone, email):
     print("Purchase successful.")
     print_ticket(ticket, "Single")
 
-#redone
+
+# redone
 def purchase_tickets_menu():
-    #This function is a mess, I am totally aware of that...
+    # This function is a mess, I am totally aware of that...
 
     def holder_menu():
         first_name, last_name, phone, email = "", "", "", ""
+
+
+        while True:
+            print("Is the customer already registered?")
+            print("|1| Yes")
+            print("|2| No")
+            command = input()
+
+            if command == "1":
+                while True:
+                    print("Please enter the customer's username")
+                    username = input()
+                    for user in users:
+                        if user.username == username:
+                            return user.first_name, user.last_name, user.phone, user.email
+                    print("User not found")
+
+            elif command == "2":
+                break
+                # we continue and ask for the customers first and last name phone and email
+            else:
+                print("Ivalid command")
 
         print("Please enter the first and last name of the customer.")
 
@@ -67,14 +91,15 @@ def purchase_tickets_menu():
             if not last_name.isalpha():
                 print("Please enter only letters")
 
-        for user in users:
-            if (user.role == Role.Customer
-                and user.first_name.lower() == first_name.lower()
-                and user.last_name.lower() == last_name.lower()):
-                #registered_user = user #The entered user has been found and saved to extract passport data for later on
-                return user.first_name, user.last_name, user.phone, user.email
+        # for user in users:
+        #     if (user.role == Role.Customer
+        #             and user.first_name.lower() == first_name.lower()
+        #             and user.last_name.lower() == last_name.lower()):
+        #         unused = input("Please enter the customer's username")  # TODO: NEW project specification
+        #         # registered_user = user #The entered user has been found and saved to extract passport data for later on
+        #         return user.first_name, user.last_name, user.phone, user.email
 
-        #if registered_user is None: #if the entered user has not been found we will take his personal data
+        # if registered_user is None: #if the entered user has not been found we will take his personal data
         while phone == "":
             phone = input("Phone number*: ")
             if '|' in phone:
@@ -136,7 +161,7 @@ def purchase_tickets_menu():
                     print("|2| Abort purchase")
                     confirmation = input()
                     if confirmation == "1":
-                        purchase_ticket(departure, first_name, last_name, phone, email)  #TODO: Look into this
+                        purchase_ticket(departure, first_name, last_name, phone, email)  # TODO: Look into this
                         return
 
                     elif confirmation == "2":
@@ -177,8 +202,9 @@ def purchase_tickets_menu():
                 if selection == "1":
                     print("Flights that depart no more than 120 minutes of the customer's arrival.")
                     print_departure_search_table(results)
-                    new_departure = validate_departure_id(results)   #new departure will be inputted throught the validate departure function
-                                                                     #the function will only look for connected flights (results)
+                    new_departure = validate_departure_id(
+                        results)  # new departure will be inputted throught the validate departure function
+                    # the function will only look for connected flights (results)
 
                     if new_departure is False:
                         return
@@ -219,6 +245,10 @@ def purchase_tickets_menu():
             if departure is False:
                 continue
 
+            print("\nCurrently selling tickets for departure:")
+            print_departure_search_table(departure, "Single")
+            print()
+
             first_name, last_name, phone, email = holder_menu()  #
             confirmation_menu(departure, first_name, last_name, phone, email)
 
@@ -231,9 +261,9 @@ def purchase_tickets_menu():
             print("Invalid input")
             choice = ""
 
-#redone
-def collect_optional_data(user, ticket, passenger=""):
 
+# redone
+def collect_optional_data(user, ticket, passenger=""):
     if passenger == "":
         if user.passport_number == "":
             while True:
@@ -307,7 +337,8 @@ def collect_optional_data(user, ticket, passenger=""):
                 else:
                     print("Invalid gender.")
 
-#redone
+
+# redone
 def connected_flights(user):
     candidates = []
     connected = []
@@ -323,13 +354,14 @@ def connected_flights(user):
             self_ticket = ticket
             found = True
 
-        if (found is True and ticket.departure.flight.departure_airport == self_ticket.departure.flight.destination_airport):
+        if (
+                found is True and ticket.departure.flight.departure_airport == self_ticket.departure.flight.destination_airport):
             connected.append(ticket)
-    #print_ticket(connected, "Multi")
+    # print_ticket(connected, "Multi")
     return connected
 
 
-#redone
+# redone
 def passenger_flights(user):
     candidates = []
     passenger_tickets = []
@@ -342,83 +374,15 @@ def passenger_flights(user):
             departure_id = ticket.departure.id
             break
 
-
     for ticket in tickets:
         if (user.email == ticket.contact_email and ticket.seat == ""
-            and ticket.departure.id == departure_id and ticket.for_deletion == "No"):
+                and ticket.departure.id == departure_id and ticket.for_deletion == "No"):
             candidates.append(ticket)
 
-    # for ticket in candidates:
-    #     if (user.first_name != ticket.first_name and ticket.seat == ""):
-    #         passenger_ticket = ticket
-    #         found = True
-    #     if found is True:
-    #         passenger_tickets.append(passenger_ticket)
-    # return passenger_tickets
-    #print_ticket(candidates, "Multi")
     return candidates
 
-#untouched
-# def choose_seat(current_ticket):
-#     if current_ticket.seat != "":
-#         print("Already checked in.")
-#         return
-#
-#     rows_cols = current_ticket.departure.flight.airplane.rows_cols
-#     rows = int(rows_cols.split("/")[0])  # 1,2,3,4...
-#     cols = int(rows_cols.split("/")[1])  # 1,2,3,4...
-#     alphabet = string.ascii_uppercase
-#     seating_table = [[0 for x in range(cols)] for x in range(rows)]
-#     # each ticket holds a field named seat
-#     # upon creation of a ticket object, the seat field is empty
-#     # upon check in this field is assigned a value in the form of 1A
-#     # to generate a table of available and taken seats for a departure we will extract the seat
-#     # data from the tickets which all contain the same departure id
-#     for i in range(rows):
-#         for j in range(cols):
-#             seating_table[i][j] = alphabet[j]
-#
-#     for ticket in tickets:
-#         if ticket.departure.id == current_ticket.departure.id:
-#             seat = ticket.seat
-#             if seat != "":  # 1A
-#                 row = int(seat[:-1])  # 1,2,3...
-#                 col = ord(seat[-1]) - 64  # A -> 1, B -> 2...
-#                 seating_table[row - 1][col - 1] = "X"
-#
-#     for i in range(rows):
-#         print("Row {:<2}".format(i + 1), ": ", end="")
-#         for j in range(cols):
-#             print(seating_table[i][j] + " ", end="")
-#         print("\n", end="")
-#
-#     print("Please choose a seat. For example 1A. Seats marked with an X are already taken")
-#     while True:
-#         chosen_seat = input()
-#         if chosen_seat.isalnum() and len(chosen_seat) in [2, 3] and chosen_seat[:-1].isnumeric() and chosen_seat[-1].isalpha():
-#             chosen_row = int(chosen_seat[:-1])
-#             chosen_col = chosen_seat[-1].upper()
-#             chosen_col = ord(chosen_col) - 64
-#             if chosen_row > rows or chosen_col > cols:
-#                 print("Non-existent seat.")
-#                 continue
-#
-#             elif seating_table[chosen_row - 1][chosen_col - 1] == "X":
-#                 print("Seat is already taken.")
-#
-#             else:
-#                 for ticket in tickets:
-#                     if current_ticket.id == ticket.id:
-#                         ticket.seat = chosen_seat[:-1] + chosen_seat[-1].upper()
-#                         save_tickets_to_file()
-#                         print("Check in successful. Your seat is", ticket.seat)
-#                 break
-#         else:
-#             print("Invalid seat")
 
-
-def check_in(option="", user_obj = None):
-
+def check_in(option="", user_obj=None):
     candidates = []  # contains only the user's tickets
     connected = []  # contains the users connected flight tickets if the argument option == "Connected"
     passenger = []
@@ -428,12 +392,12 @@ def check_in(option="", user_obj = None):
         candidates = [ticket for ticket in tickets if ticket.for_deletion == "No"]
 
     if option == "Connected":
-         candidates = connected_flights(user_obj)
-         print_ticket(candidates, "Multi")
+        candidates = connected_flights(user_obj)
+        print_ticket(candidates, "Multi")
     #
     elif option == "Passenger":
-         candidates = passenger_flights(user_obj)
-         print_ticket(candidates, "Multi")
+        candidates = passenger_flights(user_obj)
+        print_ticket(candidates, "Multi")
 
     while True:
 
@@ -451,7 +415,7 @@ def check_in(option="", user_obj = None):
         ticket_is_valid = False
 
         for ticket in candidates:
-            if ticket_id == "0":    #user wanted to go back - sentinel value
+            if ticket_id == "0":  # user wanted to go back - sentinel value
                 return
             if ticket_id.upper() == ticket.id:
                 ticket_is_valid = True
@@ -461,7 +425,8 @@ def check_in(option="", user_obj = None):
                     print("Already checked in.")
                     return
 
-                departure_datetime_obj = departure_datetime(ticket.departure.departure_date, ticket.departure.flight.departure_time)
+                departure_datetime_obj = departure_datetime(ticket.departure.departure_date,
+                                                            ticket.departure.flight.departure_time)
                 check_in_datetime_obj = departure_datetime_obj - timedelta(hours=48)
                 current_datetime_obj = datetime.now()
 
@@ -474,7 +439,8 @@ def check_in(option="", user_obj = None):
                             break
 
                     for user in customers:
-                        if (user.first_name != current_ticket.first_name or user.last_name != current_ticket.last_name) and user.email == current_ticket.contact_email:
+                        if (
+                                user.first_name != current_ticket.first_name or user.last_name != current_ticket.last_name) and user.email == current_ticket.contact_email:
                             collect_optional_data(user, current_ticket, "Passenger")
                             break
 
@@ -510,7 +476,7 @@ def check_in_menu():
         elif choice == "1":
 
             user = check_in()  # check-in is valid if flight hasn't departed yet and will return the user that checked in
-                               # else user is False - it should be None though
+            # else user is False - it should be None though
             # check whether there are tickets purchased for connected flights
             if user is not False:
                 connected_tickets = connected_flights(user)
@@ -530,7 +496,7 @@ def check_in_menu():
                         else:
                             print("Invalid command.")
 
-            # check whether there are tickets purchased for passengers
+                # check whether there are tickets purchased for passengers
                 passenger_tickets = passenger_flights(user)
 
                 if len(passenger_tickets) > 0:
@@ -562,8 +528,8 @@ def ticket_search_menu():
     validate_city(search_criteria, "departure_airport", "Please enter a departure city name. Example: Belgrade\n")
     validate_city(search_criteria, "destination_airport", "Please enter a destination city name. Example: London\n")
 
-    departure_date = datetime_input(search_criteria, "departure_date","Please enter a departure date\n")
-    arrival_date = datetime_input(search_criteria, "arrival_date","Please enter an arrival date\n")
+    departure_date = datetime_input(search_criteria, "departure_date", "Please enter a departure date\n")
+    arrival_date = datetime_input(search_criteria, "arrival_date", "Please enter an arrival date\n")
 
     first_name, last_name = "", ""
 
@@ -573,7 +539,6 @@ def ticket_search_menu():
             print("Please enter only letters")
             first_name = ""
     search_criteria["first_name"] = first_name.capitalize()
-
 
     while last_name == "":
         last_name = input("Last name:\n")
@@ -586,7 +551,6 @@ def ticket_search_menu():
     #         search_criteria["email"] = user.email
     #         break
 
-
     results = ticket_search(tickets, search_criteria)
     results = [ticket for ticket in results if ticket.for_deletion == "No"]
     if len(results) > 0:
@@ -596,7 +560,6 @@ def ticket_search_menu():
 
 
 def edit_ticket(ticket_id):
-
     departure_candidates = []
     ticket_is_valid = False
     for ticket in tickets:
@@ -607,7 +570,6 @@ def edit_ticket(ticket_id):
     if ticket_is_valid is False:
         print("Invalid ticket ID")
         return
-
 
     while True:
         print("You are now editing ticket:")
@@ -677,18 +639,17 @@ def edit_ticket(ticket_id):
 
             current_ticket.seat = ""
             ticket.departure.seats_taken -= 1
-            save_tickets_to_file()      # we have modified the ticket so we must save it in order for chose_seat to account for the freed seat
+            save_tickets_to_file()  # we have modified the ticket so we must save it in order for chose_seat to account for the freed seat
             save_departures_to_file()
             choose_seat(current_ticket)
-            #delete the seat from the ticket and check in the user again, dont allow passenger and connected check ins
+            # delete the seat from the ticket and check in the user again, dont allow passenger and connected check ins
         else:
             print("Invalid command")
-    #let, datum polaska,  sediste
+    # let, datum polaska,  sediste
 
 
-#TODO: Print on ticket if customer has checked in or not
+# TODO: Print on ticket if customer has checked in or not
 def edit_ticket_menu():
-
     while True:
         print("|0| Return to previous menu")
         print("|1| Edit a ticket by entering its ID")
@@ -698,7 +659,8 @@ def edit_ticket_menu():
             return
         elif command == "1":
             while True:
-                ticket_id = input("Please enter a ticket ID. Enter 0 to return to previous menu\n") #TODO: Validate the ticket id, only allow this if the ticket is checked in
+                ticket_id = input(
+                    "Please enter a ticket ID. Enter 0 to return to previous menu\n")  # TODO: Validate the ticket id, only allow this if the ticket is checked in
                 if ticket_id == "0":
                     break
                 edit_ticket(ticket_id)
@@ -709,7 +671,7 @@ def edit_ticket_menu():
 
 
 def delete_ticket(ticket_id):
-    #validate ticket id
+    # validate ticket id
     for ticket in tickets:
         if ticket_id.upper() == ticket.id:
             print_ticket(ticket)
@@ -719,11 +681,11 @@ def delete_ticket(ticket_id):
             command = input()
             if command == "1":
                 print("Ticket succesfully deleted")
-                ticket.for_deletion = "Yes"         # change the ticket atribute marked for deletion from no to yes
-                ticket.seat = ""                    # check the passenger out
-                ticket.departure.seats_taken -= 1   # empty a place on the departure
-                save_tickets_to_file()              # after that save all the tickets into our file
-                save_departures_to_file()           # because we changed seats taken we also have to save all the deparures
+                ticket.for_deletion = "Yes"  # change the ticket atribute marked for deletion from no to yes
+                ticket.seat = ""  # check the passenger out
+                ticket.departure.seats_taken -= 1  # empty a place on the departure
+                save_tickets_to_file()  # after that save all the tickets into our file
+                save_departures_to_file()  # because we changed seats taken we also have to save all the deparures
                 return
             elif command == "2":
                 return
