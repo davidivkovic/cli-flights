@@ -3,7 +3,8 @@ from model.Seller import Seller
 from model.Flight import Flight
 from model.Enums import Role
 from utility import *
-from globals import current_flight_id
+from output_handler import *
+from globals import users, airports, airplanes, flights, departures, tickets, init, current_flight_id
 import string
 
 
@@ -14,14 +15,13 @@ def save_seller_to_file(seller):
 
 def save_flight_to_file(flight):
     with open("data/flights", "a") as f:
-        f.write("\n" + str(flight.serialize()))
+        f.write(str(flight.serialize()) + "\n")
 
     with open("data/current_flight_id", "w") as f:
         f.write(str(current_flight_id))
 
 
 def save_flights_to_file():
-    from main import flights
     with open("data/flights", "w") as f:
         for flight in flights:
             f.write(flight.serialize() + "\n")
@@ -68,7 +68,6 @@ def register_seller():
 
 
 def validate_city(text):
-    from main import airports
     while True:
         print(text)
         city = input()
@@ -83,19 +82,19 @@ def validate_city(text):
 
 # TODO: check if inputs are empty
 def create_new_flight():
-    from main import airplanes, validate_datetime, flights, print_flight_search_table
+    from main import validate_datetime
     departure_airport = validate_city("Enter departure city. Example: Belgrade")
     destination_airport = validate_city("Enter destination city. Example: London")
 
     while True:
-        print("Enter a departure time in the format of H:M")
+        print("Enter a departure time in the format of HH:MM")
         time = input()
         if validate_datetime(time, "Time") is True:
             departure_time = time
             break
 
     while True:
-        print("Enter an arrival time in the format of H:M")
+        print("Enter an arrival time in the format of HH:MM")
         time = input()
         if validate_datetime(time, "Time") is True:
             arrival_time = time
@@ -103,10 +102,10 @@ def create_new_flight():
 
     departure_time_obj = datetime.strptime(departure_time, "%H:%M")
     arrival_time_obj = datetime.strptime(arrival_time, "%H:%M")
-    if arrival_time_ < departure_time_:
-        flight.overnight = "Yes"
+    if arrival_time_obj < departure_time_obj:
+        overnight = "Yes"
     else:
-        flight.overnight = "No"
+        overnight = "No"
 
 
     while True:
@@ -202,7 +201,7 @@ def create_new_flight():
 
 
 def edit_flight(flight):
-    from main import print_flight_search_table, validate_datetime, airplanes, save_departures_to_file, flights, print_departure_search_table
+    from main import validate_datetime, save_departures_to_file, generate_departure_dates
     from data_loader import load_departures
     while True:
         print("You are now editing flight")
@@ -212,15 +211,15 @@ def edit_flight(flight):
         print("|2| Change destination airport")
         print("|3| Change departure time")
         print("|4| Change arrival time")
-        print("|5| Change whether the flight is an overnight one")
-        print("|6| Change airline")
-        print("|7| Change departure days")
-        print("|8| Change airplane model")
-        print("|9| Change Price")
+        print("|5| Change airline")
+        print("|6| Change departure days")
+        print("|7| Change airplane model")
+        print("|8| Change Price")
 
         choice = input()
         if choice == "0":
             return
+            generate_departure_dates()  # we update the departures to reflect changes made to their respective flights
         elif choice == "1":
             while True:
                 departure_airport = validate_city("Enter departure city. Example: Belgrade")
@@ -245,44 +244,60 @@ def edit_flight(flight):
 
         elif choice == "3":
             while True:
-                print("Enter a departure time in the format of H:M")
+                print("Enter a departure time in the format of HH:MM")
                 time = input()
                 if validate_datetime(time, "Time") is True:
                     flight.departure_time = time
+
+                    departure_time_obj =  datetime.strptime(time, "%H:%M")
+                    arrival_time_obj = datetime.strptime(flight.arrival_time, "%H:%M")
+                    if departure_time_obj > arrival_time_obj:
+                        flight.overnight = "Yes"
+                    else:
+                        flight.overnight = "No"
                     save_flights_to_file()
+
                     print("Edit successful")
                     break
 
         elif choice == "4":
             while True:
-                print("Enter an arrival time in the format of H:M")
+                print("Enter an arrival time in the format of HH:MM")
                 time = input()
                 if validate_datetime(time, "Time") is True:
                     flight.arrival_time = time
+
+                    arrival_time_obj = datetime.strptime(time, "%H:%M")
+                    departure_time_obj = datetime.strptime(flight.departure_time, "%H:%M")
+                    if departure_time_obj > arrival_time_obj:
+                        flight.overnight = "Yes"
+                    else:
+                        flight.overnight = "No"
+
                     save_flights_to_file()
                     print("Edit successful")
                     break
+
+        # elif choice == "5":
+        #     while True:
+        #         print("Is this an overnight flight?")
+        #         print("|1| Yes")
+        #         print("|2| No")
+        #         choice = input()
+        #         if choice == "1":
+        #             flight.overnight = "Yes"
+        #             save_flights_to_file()
+        #             print("Edit successful")
+        #             break
+        #         elif choice == "2":
+        #             flight.overnight = "No"
+        #             save_flights_to_file()
+        #             print("Edit successful")
+        #             break
+        #         else:
+        #             print("Invalid command")
 
         elif choice == "5":
-            while True:
-                print("Is this an overnight flight?")
-                print("|1| Yes")
-                print("|2| No")
-                choice = input()
-                if choice == "1":
-                    flight.overnight = "Yes"
-                    save_flights_to_file()
-                    print("Edit successful")
-                    break
-                elif choice == "2":
-                    flight.overnight = "No"
-                    save_flights_to_file()
-                    print("Edit successful")
-                    break
-                else:
-                    print("Invalid command")
-
-        elif choice == "6":
             while True:
                 print("Please enter an airline name")
                 airline = input()
@@ -294,7 +309,7 @@ def edit_flight(flight):
                 else:
                     print("Airline names cannot contain the character \"|\"")
 
-        elif choice == "7":
+        elif choice == "6":
             days = ""
             valid = True
             while True:
@@ -328,7 +343,7 @@ def edit_flight(flight):
                 print("Edit successful")
                 break
 
-        elif choice == "8":
+        elif choice == "7":
             current_airplane = None
             while True:
                 if current_airplane is not None:
@@ -369,7 +384,7 @@ def edit_flight(flight):
                 else:
                     print("Invalid command")
 
-        elif choice == "9":
+        elif choice == "8":
             print("Enter a price in €")
             price = input()
             if price.isnumeric():
@@ -383,10 +398,10 @@ def edit_flight(flight):
 
 
 def edit_flights_menu():
-    from main import flights, print_flight_search_table
     search_criteria = create_search_dict()
     valid_results = None
 
+    save_flights_to_file()
     while True:
         print("|0| Return to previous menu")
         print("|1| Edit a flight by entering its number")
@@ -421,7 +436,7 @@ def edit_flights_menu():
 
 
 def delete_tickets_menu():
-    from main import tickets, print_ticket, save_tickets_to_file
+    from main import save_tickets_to_file
 
     while True:
         candidates = []
@@ -434,6 +449,7 @@ def delete_tickets_menu():
             print_ticket(candidates, "Multi")
         else:
             print("No tickets marked for deletion")
+            return
 
         print("|0| Return to previous menu")
         print("|1| Permanently delete all of the tickets marked for deletion")
@@ -488,7 +504,7 @@ def delete_tickets_menu():
 
 
 def generate_reports():
-    from main import datetime_input, tickets, print_ticket, users
+    from main import datetime_input
     while True:
         print("|0| Return to previous menu")
         print("|1| List of sold tickets by date od sale")
@@ -504,20 +520,26 @@ def generate_reports():
             return
         elif choice == "1":
             search_criteria = create_search_dict_ticket()
-            datetime_input(search_criteria, "purchase_date", "Please enter a date of sale in the format of m-d-yyyy\n")
+            datetime_input(search_criteria, "purchase_date", "Please enter a date of sale in the format of dd-mm-yyyy\n")
             results = ticket_search(tickets, search_criteria)
-            print_ticket(results, "Multi")
+            if len(results) > 0:
+                print_ticket(results, "Multi")
+            else:
+                print("No tickets to show")
 
         elif choice == "2":
             search_criteria = create_search_dict_ticket()
             datetime_input(search_criteria, "departure_date",
-                           "Please enter a departure date in the format of m-d-yyyy\n")
+                           "Please enter a departure date in the format of dd-mm-yyyy\n")
             results = ticket_search(tickets, search_criteria)
-            print_ticket(results, "Multi")
+            if len(results) > 0:
+                print_ticket(results, "Multi")
+            else:
+                print("No tickets to show")
 
         elif choice == "3":
             search_criteria = create_search_dict_ticket()
-            datetime_input(search_criteria, "purchase_date", "Please enter a date of sale in the format of m-d-yyyy\n")
+            datetime_input(search_criteria, "purchase_date", "Please enter a date of sale in the format of dd-mm-yyyy\n")
 
             first_name, last_name = "", ""
 
@@ -540,41 +562,49 @@ def generate_reports():
             search_criteria["sold_by"] = first_name.capitalize() + " " + last_name.capitalize()
 
             results = ticket_search(tickets, search_criteria)
-            print_ticket(results, "Multi")
+            if len(results) > 0:
+                print_ticket(results, "Multi")
+            else:
+                print("No tickets to show")
 
         elif choice == "4":
             total_price = 0
             search_criteria = create_search_dict_ticket()
-            datetime_input(search_criteria, "purchase_date", "Please enter a date of sale in the format of m-d-yyyy\n")
+            datetime_input(search_criteria, "purchase_date", "Please enter a date of sale in the format of dd-mm-yyyy\n")
             results = ticket_search(tickets, search_criteria)
+            if len(results) > 0:
+                for ticket in results:
+                    total_price += int(ticket.departure.flight.price)
+                number_of_tickets = len(results)
 
-            for ticket in results:
-                total_price += int(ticket.departure.flight.price)
-            number_of_tickets = len(results)
-
-            print("\nNumber of tickets sold on", search_criteria["purchase_date"], "is", number_of_tickets)
-            print("Total price of tickets sold on", search_criteria["purchase_date"], "is", str(total_price) + "€\n")
+                print("\nNumber of tickets sold on", search_criteria["purchase_date"], "is", number_of_tickets)
+                print("Total price of tickets sold on", search_criteria["purchase_date"], "is", str(total_price) + "€\n")
+            else:
+                print("No tickets to show")
 
         elif choice == "5":
             total_price = 0
             search_criteria = create_search_dict_ticket()
             datetime_input(search_criteria, "departure_date",
-                           "Please enter a departure date in the format of m-d-yyyy\n")
+                           "Please enter a departure date in the format of dd-mm-yyyy\n")
             results = ticket_search(tickets, search_criteria)
+            if len(results) > 0:
+                for ticket in results:
+                    total_price += int(ticket.departure.flight.price)
+                number_of_tickets = len(results)
 
-            for ticket in results:
-                total_price += int(ticket.departure.flight.price)
-            number_of_tickets = len(results)
+                print("\nNumber of tickets sold for flights that depart on", search_criteria["departure_date"], "is",
+                      number_of_tickets)
+                print("Total price of tickets sold for flights that depart on", search_criteria["departure_date"], "is",
+                      str(total_price) + "€\n")
+            else:
+                print("No tickets to show")
 
-            print("\nNumber of tickets sold for flights that depart on", search_criteria["departure_date"], "is",
-                  number_of_tickets)
-            print("Total price of tickets sold for flights that depart on", search_criteria["departure_date"], "is",
-                  str(total_price) + "€\n")
 
         elif choice == "6":
             total_price = 0
             search_criteria = create_search_dict_ticket()
-            datetime_input(search_criteria, "purchase_date", "Please enter a date of sale in the format of m-d-yyyy\n")
+            datetime_input(search_criteria, "purchase_date", "Please enter a date of sale in the format of dd-mm-yyyy\n")
 
             first_name, last_name = "", ""
             while True:
@@ -596,15 +626,17 @@ def generate_reports():
             search_criteria["sold_by"] = first_name.capitalize() + " " + last_name.capitalize()
 
             results = ticket_search(tickets, search_criteria)
+            if len(results) > 0:
+                for ticket in results:
+                    total_price += int(ticket.departure.flight.price)
+                number_of_tickets = len(results)
 
-            for ticket in results:
-                total_price += int(ticket.departure.flight.price)
-            number_of_tickets = len(results)
-
-            print("\nNumber of tickets sold by", search_criteria["sold_by"], "on", search_criteria["purchase_date"],
-                  "is", number_of_tickets)
-            print("Total price of tickets sold by", search_criteria["sold_by"], "on", search_criteria["purchase_date"],
-                  "is", str(total_price) + "€\n")
+                print("\nNumber of tickets sold by", search_criteria["sold_by"], "on", search_criteria["purchase_date"],
+                      "is", number_of_tickets)
+                print("Total price of tickets sold by", search_criteria["sold_by"], "on", search_criteria["purchase_date"],
+                      "is", str(total_price) + "€\n")
+            else:
+                print("No tickets to show")
 
         elif choice == "7":
 
@@ -622,8 +654,7 @@ def generate_reports():
 
             report = dict()
             for seller in sellers:  # for every seller create a dict value of [0,0] with the key being his name
-                report[seller.first_name + " " + seller.last_name] = [0,
-                                                                      0]  # first element is number of tickets sold, second is price
+                report[seller.first_name + " " + seller.last_name] = [0,0]  # first element is number of tickets sold, second is price
 
             for ticket in candidates:
                 if ticket.sold_by != "":  # go through all the candidates and take the ones that have been sold by a seller

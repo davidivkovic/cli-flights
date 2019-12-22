@@ -9,6 +9,7 @@ import manager_functions
 import string
 import re
 from globals import users, airports, airplanes, flights, departures, tickets, init, current_flight_id, current_ticket_id
+from output_handler import *
 import calendar
 import copy
 local_user = None
@@ -55,60 +56,8 @@ def generate_departure_dates():
     #print_departure_search_table(results)
         #print(new_departure_id)
 
-def test():
-    with open("data/testoutput") as f:
-        content = f.readlines()
-    candidates = []
-    for line in content:
-        flight_data = line.rstrip().split("|")
-        flight = Flight(flight_data[0],  # flight_number
-                        flight_data[1],  # departure airport
-                        flight_data[2],  # destination airport
-                        flight_data[3],  # departure_time
-                        flight_data[4],  # arrival time
-                        flight_data[5],  # overnight
-                        flight_data[6],  # airline
-                        flight_data[7],  # days
-                        flight_data[8],  # airplane
-                        flight_data[9])  # price
-        candidates.append(flight)
-    for flight in candidates:
-        departure_time = datetime.strptime(flight.departure_time,"%H:%M")
-        arrival_time = datetime.strptime(flight.arrival_time,"%H:%M")
-        if arrival_time < departure_time:
-            flight.overnight = "Yes"
 
-    with open("data/newtest", "w") as f:
-        for flight in candidates:
-            f.write(flight.serialize() + "\n")
-
-
-
-    #print(daysOftheWeek[day.isoweekday()])
-
-# TODO: Print all the date formating examples m-d-yyyy
-
-def testing():
-    airport_data = []
-    dep_airport = []
-    results = []
-    with open("data/test") as f:
-        content = f.readlines()
-        for line in content:
-            data = line.strip().split('|')
-            airport_data.append(data)
-    airport_codes = [airport.code for airport in airports]
-    with open("data/testoutput", "a") as f:
-        for airport in airport_data:
-            if airport[0] in airport_codes:
-                f.write(airport[0] + "|" + airport[1] + "\n")
-
-
-def departure_datetime(departure_date, departure_time):
-    departure_date_obj = datetime.strptime(departure_date, "%d-%m-%Y").date()
-    departure_time_obj = datetime.strptime(departure_time, "%H:%M").time()
-    departure_datetime_obj = datetime.combine(departure_date_obj, departure_time_obj)
-    return departure_datetime_obj
+# TODO: Print all the date formating examples mm-dd-yyyy
 
 
 def collect_optional_data(ticket, passenger=""):
@@ -258,8 +207,10 @@ def choose_seat(current_ticket):
             if seat != "":  # 1A
                 row = int(seat[:-1])  # 1,2,3...
                 col = ord(seat[-1]) - 64  # A -> 1, B -> 2...
-                seating_table[row - 1][col - 1] = "X"
-
+                try:
+                    seating_table[row - 1][col - 1] = "X"
+                except:
+                    print("Unexpected error occured")
     for i in range(rows):
         print("Row {:<2}".format(i + 1), ": ", end="")
         for j in range(cols):
@@ -289,6 +240,7 @@ def choose_seat(current_ticket):
                         ticket.seat = chosen_seat[:-1] + chosen_seat[-1].upper()
                         save_tickets_to_file()
                         print("Check in successful. Your seat is", ticket.seat)
+                        break
                 break
         else:
             print("Invalid seat")
@@ -344,8 +296,7 @@ def check_in(option=""):
 
                 departure_datetime_obj = departure_datetime(ticket.departure.departure_date,
                                                             ticket.departure.flight.departure_time)  # takes the required date and time strings,
-                check_in_datetime_obj = departure_datetime_obj - timedelta(
-                    hours=48)  # parses them, joins them and returns a datetime object
+                check_in_datetime_obj = departure_datetime_obj - timedelta(hours=48)  # parses them, joins them and returns a datetime object
                 current_datetime_obj = datetime.now()
 
                 if current_datetime_obj >= check_in_datetime_obj and current_datetime_obj < departure_datetime_obj:
@@ -359,7 +310,7 @@ def check_in(option=""):
                         collect_optional_data(current_ticket, "Passenger")
 
                     save_customers_to_file()
-                    choose_seat(ticket)
+                    choose_seat(current_ticket)
                     save_tickets_to_file()
                     return
 
@@ -377,7 +328,6 @@ def check_in(option=""):
             print("Invalid ticked ID")
 
 
-# TODO: If he tries to check in for a passenger first no not take data from the current user - DONE
 def check_in_menu():
     while True:
         print("You can check in 48 hours before your flight. Enter a ticket ID or search for it.")
@@ -455,7 +405,6 @@ def unrealised_tickets():
         print("You have not purchased any tickets.")
 
 
-# here is where we check if the departure is full or not
 def validate_departure_id(list=None):
     flight_id = ""
     valid = False
@@ -478,12 +427,13 @@ def validate_departure_id(list=None):
                         valid = True
                         break
 
-    if valid is False:
-        print("Invalid departure ID")
-        flight_id = ""
+        if valid is False:
+            print("Invalid departure ID")
+            flight_id = ""
+            continue
 
-    elif valid is True:
-        if result.seats_taken == result.flight.airplane.capacity:
+    if valid is True:
+        if result.seats_taken >= result.flight.airplane.capacity:
             valid = False
             flight_id = ""
             print("Flight is full. Please choose another flight")
@@ -496,53 +446,6 @@ def validate_departure_id(list=None):
             print("Flight has already taken off.")
             return False
     return result
-
-
-# Takes a single ticket and prints it if mode is "Single"
-# Takes a list of tickets and prints them all if mode is "Multi"
-def print_ticket(ticket, mode):
-    # print the default table header
-    print("{:12}{:14}{:16}{:16}{:22}{:22}{:24}{:20}{:30}{:20}{:20}".format("Ticket ID", "Departure ID", "From", "To",
-                                                                           "Departure date", "Arrival date",
-                                                                           "Ticket holder",
-                                                                           "Contact phone",
-                                                                           "Contact email", "Date of purchase", "Seat"))
-    if mode == "Single":  # we pass one single ticket - a non iterable
-        if ticket.seat == "":
-            seat = "Not checked in"
-        else:
-            seat = ticket.seat
-        print("{:12}{:14}{:16}{:16}{:22}{:22}{:24}{:20}{:30}{:20}{:20}".format(ticket.id, ticket.departure.id,
-                                                                               ticket.departure.flight.departure_airport.city,
-                                                                               ticket.departure.flight.destination_airport.city,
-                                                                               ticket.departure.departure_date + " at " +
-                                                                               ticket.departure.flight.departure_time,
-                                                                               ticket.departure.arrival_date + " at " +
-                                                                               ticket.departure.flight.arrival_time,
-                                                                               ticket.first_name + " " + ticket.last_name,
-                                                                               ticket.contact_phone,
-                                                                               ticket.contact_email,
-                                                                               ticket.purchase_date,
-                                                                               seat))
-    elif mode == "Multi":  # we pass a list of tickets to print - iterable
-        tickets = ticket  # so in order to overload we declare a list called tickets and assign it the paramter's list
-        for ticket in tickets:
-            if ticket.seat == "":
-                seat = "Not checked in"
-            else:
-                seat = ticket.seat
-            print("{:12}{:14}{:16}{:16}{:22}{:22}{:24}{:20}{:30}{:20}{:20}".format(ticket.id, ticket.departure.id,
-                                                                                   ticket.departure.flight.departure_airport.city,
-                                                                                   ticket.departure.flight.destination_airport.city,
-                                                                                   ticket.departure.departure_date + " at " +
-                                                                                   ticket.departure.flight.departure_time,
-                                                                                   ticket.departure.arrival_date + " at " +
-                                                                                   ticket.departure.flight.arrival_time,
-                                                                                   ticket.first_name + " " + ticket.last_name,
-                                                                                   ticket.contact_phone,
-                                                                                   ticket.contact_email,
-                                                                                   ticket.purchase_date,
-                                                                                   seat))
 
 
 def purchase_ticket(departure, first_name="", last_name=""):
@@ -751,6 +654,10 @@ def purchase_tickets_menu():
             if departure is False:
                 continue
 
+            print("\nYou are now purchasing tickets for the following departure:")
+            print_departure_search_table(departure, "Single")
+            print()
+
             first_name, last_name = holder_menu()  # empty for self pruchase, first and last name when purchasing for other person
 
             confirmation_menu(departure, first_name, last_name)
@@ -838,7 +745,7 @@ def flexible_schedule_menu():
     print_departure_search_table(results)
 
 
-def cheapest_flights_menu(amount):  # TODO: Rework this
+def cheapest_flights_menu():
 
     search_criteria = create_search_dict()
     validate_city(search_criteria, "departure_airport", "Please enter a departure city name. Example: Belgrade\n")
@@ -846,7 +753,7 @@ def cheapest_flights_menu(amount):  # TODO: Rework this
     results = flight_search(flights, search_criteria)
 
     results.sort(key=lambda flight: flight.price)
-    results = results[:amount]
+    results = results[:10]
     results.reverse()
 
     print_flight_search_table(results)
@@ -863,17 +770,6 @@ def unrealised_departures():
             results.append(departure)
 
     print_departure_search_table(results)
-
-
-def print_departure_search_menu():
-    print("|1| Departure airport")
-    print("|2| Destination airport")
-    print("|3| Departure date")
-    print("|4| Arrival date")
-    print("|5| Departure time")
-    print("|6| Arrival time")
-    print("|7| Airline")
-    print("|0| Return to previous menu")
 
 
 def validate_datetime(date_text, time=""):
@@ -905,96 +801,6 @@ def validate_integer(integer):
         return False
     else:
         return True
-
-
-def print_departure_search_table(results, mode = ""):
-    if mode == "Single":
-        departure = results
-        print("{:16}{:20}{:20}{:25}{:25}{:10}{:}".format("Departure ID", "From", "To", "Departure date and time",
-                                                         "Arrival date and time",
-                                                         "Price", "Airline"))
-        print("{:16}{:20}{:20}{:10} at {:11}{:10} at {:11}{:10}{:}".format(departure.id,
-                                                                           departure.flight.departure_airport.city,
-                                                                           departure.flight.destination_airport.city,
-                                                                           departure.departure_date,
-                                                                           departure.flight.departure_time,
-                                                                           departure.arrival_date,
-                                                                           departure.flight.arrival_time,
-                                                                           departure.flight.price + " €",
-                                                                           departure.flight.airline))
-
-    elif len(results) > 0:
-        if mode == "":
-            print("{:16}{:20}{:20}{:25}{:25}{:10}{:}".format("Departure ID", "From", "To", "Departure date and time",
-                                                           "Arrival date and time",
-                                                           "Price", "Airline"))
-            for departure, number in zip(results, range(1001)):
-                print("{:16}{:20}{:20}{:10} at {:11}{:10} at {:11}{:10}{:}".format(departure.id,
-                                                                                   departure.flight.departure_airport.city,
-                                                                                   departure.flight.destination_airport.city,
-                                                                                   departure.departure_date,
-                                                                                   departure.flight.departure_time,
-                                                                                   departure.arrival_date,
-                                                                                   departure.flight.arrival_time,
-                                                                                   departure.flight.price + " €",
-                                                                                   departure.flight.airline))
-                if(number == 1000):
-                    print("Search results have been omitted. Showing first 1000 results")
-                    return
-        elif mode == "Duration":
-            print("{:16}{:20}{:20}{:25}{:25}{:15}{:10}{:}".format("Departure ID", "From", "To", "Departure date and time",
-                                                             "Arrival date and time", "Duration",
-                                                             "Price", "Airline"))
-            for departure in results:
-                departure_datetime_obj = departure_datetime(departure.departure_date, departure.flight.departure_time)
-                arrival_datetime_obj = departure_datetime(departure.arrival_date, departure.flight.arrival_time)
-                duration_obj = arrival_datetime_obj - departure_datetime_obj
-                distance = int(duration_obj.total_seconds() / 60)
-                print("{:16}{:20}{:20}{:10} at {:11}{:10} at {:11}{:15}{:10}{:}".format(departure.id,
-                                                                                   departure.flight.departure_airport.city,
-                                                                                   departure.flight.destination_airport.city,
-                                                                                   departure.departure_date,
-                                                                                   departure.flight.departure_time,
-                                                                                   departure.arrival_date,
-                                                                                   departure.flight.arrival_time,
-                                                                                   str(distance) + " Minutes" ,
-                                                                                   departure.flight.price + " €",
-                                                                                   departure.flight.airline))
-
-    else:
-        print("No matching results found")
-
-
-def print_flight_search_table(results, single=""):
-    if single == "Single":
-        print("{:16}{:22}{:22}{:30}{:24}{:10}{:20}{:}".format("Flight number", "From", "To", "Departure dates",
-                                                              "Overnight flight?", "Price", "Airplane Model", "Airline"))
-        flight = results
-        print("{:16}{:22}{:22}{:30}{:24}{:10}{:20}{:}".format(flight.flight_number,
-                                                              flight.departure_airport.city,
-                                                              flight.destination_airport.city,
-                                                              flight.days + " at " + flight.departure_time,
-                                                              flight.overnight + " - Arrives at " + flight.arrival_time,
-                                                              flight.price + " €",
-                                                              flight.airplane.name,
-                                                              flight.airline))
-    else:
-        if len(results) > 0:
-            print(
-                "{:16}{:22}{:22}{:30}{:24}{:10}{:20}{:}".format("Flight number", "From", "To", "Departure dates",
-                                                                "Overnight flight?",
-                                                                "Price", "Airplane Model", "Airline"))
-            for flight in results:
-                print("{:16}{:22}{:22}{:30}{:24}{:10}{:20}{:}".format(flight.flight_number,
-                                                                      flight.departure_airport.city,
-                                                                      flight.destination_airport.city,
-                                                                      flight.days + " at " + flight.departure_time,
-                                                                      flight.overnight + " - Arrives at " + flight.arrival_time,
-                                                                      flight.price + " €",
-                                                                      flight.airplane.name,
-                                                                      flight.airline))
-        else:
-            print("No matching results found")
 
             # actually should be called validate date or time
             # if we pass "Time" into the time parameter it will validate time
@@ -1071,17 +877,17 @@ def departure_search_menu(end="", mode="Single"):  # Other argument is "Multi"
             validate_city(search_criteria, "destination_airport", "Please enter a destination city name. Example: London\n")
 
         if '3' in choices:
-            datetime_input(search_criteria, "departure_date", "Please enter a departure date in the format of d-m-yyyy\n")
+            datetime_input(search_criteria, "departure_date", "Please enter a departure date in the format of dd-mm-yyyy\n")
 
         if '4' in choices:
-            datetime_input(search_criteria, "arrival_date", "Please enter an arrival date in the format of d-m-yyyy\n")
+            datetime_input(search_criteria, "arrival_date", "Please enter an arrival date in the format of dd-mm-yyyy\n")
 
         if '5' in choices:
-            datetime_input(search_criteria, "departure_time", "Please enter a departure time in the format of H:M\n",
+            datetime_input(search_criteria, "departure_time", "Please enter a departure time in the format of HH:MM\n",
                            "Time")
 
         if '6' in choices:
-            datetime_input(search_criteria, "arrival_time", "Please enter an arrival time in the format of H:M\n",
+            datetime_input(search_criteria, "arrival_time", "Please enter an arrival time in the format of HH:MM\n",
                            "Time")
 
         if '7' in choices:
@@ -1105,6 +911,7 @@ def authenticate_user(username, password, ):
 def register_handler():
     username, password, first_name, last_name, phone, email = "", "", "", "", "", ""
     list_of_usernames = [user.username for user in users]
+    list_of_emails = [user.email for user in users if user.role == Role.Customer]
 
     print("Fields marked with an * are required")
     while username == "":
@@ -1145,8 +952,11 @@ def register_handler():
         if not re.match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email):
             print("Please enter a valid email address")
             email = ""
+        elif email in list_of_emails:
+            print("Email address already taken, please enter a different email address")
+            email = ""
 
-    passport_number = input("Passport number: ")
+    passport_number = input("(Press enter to skip) Passport number:")
     while passport_number != "":
         if len(passport_number) != 9 or not passport_number.isnumeric():
             print("Passport number can only contain digits and must be 9 digits long")
@@ -1154,7 +964,7 @@ def register_handler():
         else:
             break
 
-    nationality = input("Nationality: ")
+    nationality = input("(Press enter to skip) Nationality: ")
     while nationality != "":
         if not nationality.isalpha():
             print("Please enter only letters")
@@ -1162,7 +972,7 @@ def register_handler():
         else:
             break
 
-    gender = input("Gender: ")
+    gender = input("(Press enter to skip) Gender: ")
     while gender != "":
         if not gender.isalpha():
             print("Please enter only letters")
@@ -1174,9 +984,10 @@ def register_handler():
 
 
 def register_user(username, password, first_name, last_name, phone, email, passport_number, nationality, gender):
-    user = Customer(username, password, first_name, last_name, phone, email, passport_number, nationality, gender)
+    user = Customer(username, password, first_name.capitalize(), last_name.capitalize(), phone, email, passport_number, nationality, gender)
     users.append(user)
     save_customer_to_file(user)
+    print("Successfully registered! You may now log in")
 
 
 def save_customer_to_file(user):
@@ -1211,15 +1022,6 @@ def save_tickets_to_file():
             f.write(ticket.serialize() + "\n")
 
 
-def print_default_menu():
-    print("|2| Exit application")
-    print("|3| Overview of unrealised flights")
-    print("|4| Flight search")
-    print("|5| Multiple-criteria Flight search")
-    print("|6| 10 Cheapest flights from departure to destination")
-    print("|7| Flexible departure date")
-
-
 def default_menu(command):
     command_dict = {
         "2": exit,
@@ -1235,7 +1037,7 @@ def default_menu(command):
         elif command == "5":
             departure_search_menu("", "Multi")
         elif command == "6":
-            cheapest_flights_menu(10)
+            cheapest_flights_menu()
         else:
             command_dict[command]()
         return True
@@ -1333,39 +1135,18 @@ def manager_menu():
             print("Unknown command, please enter a valid command")
 
 
-def shortest_flights():
-    search_criteria = create_search_dict()
-    validate_city(search_criteria, "departure_airport", "Please enter a departure city name. Example: Belgrade\n")
-    validate_city(search_criteria, "destination_airport", "Please enter a destination city name. Example: London\n")
-    datetime_input(search_criteria, "departure_date", "Please enter a departure date in the format of d-m-yyyy\n")
-
-    candidates = departure_search(departures, search_criteria)
-    results = []
-
-    for departure in candidates:
-        departure_datetime_obj = departure_datetime(departure.departure_date, departure.flight.departure_time)
-        arrival_datetime_obj = departure_datetime(departure.arrival_date, departure.flight.arrival_time)
-        duration_obj = arrival_datetime_obj - departure_datetime_obj
-        duration = int(duration_obj.total_seconds() / 60)
-        results.append((departure, duration))
-
-    results.sort(key=lambda x: x[1])
-
-    results[:] = [departure_tuple[0] for departure_tuple in results]
-    print_departure_search_table(results, "Distance")
-
-
 def main():
+
     init()
     print("Welcome!")
     print("Current date and time:", datetime.now().replace(microsecond=0))
     generate_departure_dates()
+    #test1()
     while True:
 
         print("|1| Log in")
         print_default_menu()
-        print("|8| Shortest flights from starting point to destination on a given date")
-        print("|9| Register as new user")
+        print("|8| Register as new user")
 
         command = input()
 
@@ -1394,9 +1175,6 @@ def main():
         globals.current_user = None
 
         if command == '8':
-            shortest_flights()
-
-        elif command == '9':
             print("Please enter your credentials: ")
             register_handler()
 

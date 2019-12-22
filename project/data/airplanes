@@ -1,120 +1,120 @@
-A124|Antonov AN-124 Ruslan|22/12
-A140|Antonov AN-140|25/12
-A148|Antonov An-148|16/11
-A158|Antonov An-158|15/12
-A225|Antonov An-225 Mriya|16/9
-AN12|Antonov AN-12|23/10
-AN24|Antonov AN-24|25/9
-AN26|Antonov AN-26|21/8
-AN28|Antonov AN-28|23/9
-AN30|Antonov AN-30|20/11
-AN32|Antonov AN-32|15/8
-AN72|Antonov AN-72 / AN-74|24/11
-A19N|Airbus A319neo|18/10
-A20N|Airbus A320neo|20/11
-A21N|Airbus A321neo|25/8
-A306|Airbus A300-600|22/8
-A310|Airbus A310-300|21/11
-A318|Airbus A318|22/11
-A319|Airbus A319|22/11
-A320|Airbus A320|24/12
-A321|Airbus A321|22/12
-A332|Airbus A330-200|21/11
-A333|Airbus A330-300|22/12
-A338|Airbus A330-800neo|24/9
-A339|Airbus A330-900neo|24/10
-A342|Airbus A340-200|17/9
-A343|Airbus A340-300|23/8
-A345|Airbus A340-500|18/8
-A346|Airbus A340-600|18/10
-A359|Airbus A350-900|23/10
-A35K|Airbus A350-1000|19/12
-A388|Airbus A380-800|24/11
-B37M|Boeing 737 MAX 7|22/12
-B38M|Boeing 737 MAX 8|20/11
-B39M|Boeing 737 MAX 9|18/11
-B3XM|Boeing 737 MAX 10|16/11
-B703|Boeing 707|23/10
-B712|Boeing 717|19/9
-B720|Boeing 720B|18/11
-B721|Boeing 727-100|18/11
-B722|Boeing 727-200|15/11
-B732|Boeing 737-200|25/8
-B733|Boeing 737-300|19/11
-B734|Boeing 737-400|25/11
-B735|Boeing 737-500|19/10
-B736|Boeing 737-600|17/12
-B737|Boeing 737-700|23/9
-B738|Boeing 737-800|15/10
-B739|Boeing 737-900|25/9
-B741|Boeing 747-100|22/9
-B742|Boeing 747-200|25/8
-B743|Boeing 747-300|15/8
-B743|Boeing 747-300M|18/11
-B744|Boeing 747-400|25/9
-B748|Boeing 747-8F|17/12
-B74R|Boeing 747SR|19/11
-B74S|Boeing 747SP|16/11
-B752|Boeing 757-200|21/9
-B753|Boeing 757-300|15/11
-B762|Boeing 767-200|19/9
-B763|Boeing 767-300|24/11
-B764|Boeing 767-400ER|23/8
-B772|Boeing 777-200|16/9
-B77L|Boeing 777-200LR|23/9
-B773|Boeing 777-300|18/10
-B77W|Boeing 777-300ER|17/10
-B778|Boeing 777-8|23/11
-B779|Boeing 777-9|18/9
-B788|Boeing 787-8|22/10
+A124|Antonov AN-124 Ruslan|24/8
+A140|Antonov AN-140|22/4
+A148|Antonov An-148|16/6
+A158|Antonov An-158|22/8
+A19N|Airbus A319neo|17/8
+A20N|Airbus A320neo|24/4
+A21N|Airbus A321neo|13/4
+A225|Antonov An-225 Mriya|17/4
+A306|Airbus A300-600|20/4
+A310|Airbus A310-300|16/8
+A318|Airbus A318|23/6
+A319|Airbus A319|22/4
+A320|Airbus A320|19/4
+A321|Airbus A321|19/8
+A332|Airbus A330-200|23/8
+A333|Airbus A330-300|12/8
+A338|Airbus A330-800neo|13/8
+A339|Airbus A330-900neo|22/8
+A342|Airbus A340-200|17/6
+A343|Airbus A340-300|13/4
+A345|Airbus A340-500|10/8
+A346|Airbus A340-600|13/8
+A359|Airbus A350-900|20/8
+A35K|Airbus A350-1000|11/8
+A388|Airbus A380-800|15/4
+AN12|Antonov AN-12|15/6
+AN24|Antonov AN-24|17/8
+AN26|Antonov AN-26|18/6
+AN28|Antonov AN-28|11/8
+AN30|Antonov AN-30|20/4
+AN32|Antonov AN-32|13/4
+AN72|Antonov AN-72|15/8
+B37M|Boeing 737 MAX 7|16/8
+B38M|Boeing 737 MAX 8|19/8
+B39M|Boeing 737 MAX 9|12/6
+B3XM|Boeing 737 MAX 10|23/4
+B703|Boeing 707|11/8
+B712|Boeing 717|13/8
+B720|Boeing 720B|24/6
+B721|Boeing 727-100|18/8
+B722|Boeing 727-200|13/6
+B732|Boeing 737-200|13/6
+B733|Boeing 737-300|22/4
+B734|Boeing 737-400|17/4
+B735|Boeing 737-500|20/4
+B736|Boeing 737-600|11/6
+B737|Boeing 737-700|23/8
+B738|Boeing 737-800|15/8
+B739|Boeing 737-900|13/6
+B741|Boeing 747-100|14/4
+B742|Boeing 747-200|13/4
+B743|Boeing 747-300|23/8
+B743|Boeing 747-300M|13/8
+B744|Boeing 747-400|19/8
+B748|Boeing 747-8F|23/4
+B74R|Boeing 747SR|19/4
+B74S|Boeing 747SP|10/6
+B752|Boeing 757-200|15/4
+B753|Boeing 757-300|12/6
+B762|Boeing 767-200|24/4
+B763|Boeing 767-300|15/4
+B764|Boeing 767-400ER|19/8
+B772|Boeing 777-200|16/6
+B77L|Boeing 777-200LR|24/8
+B773|Boeing 777-300|23/8
+B77W|Boeing 777-300ER|16/8
+B778|Boeing 777-8|18/4
+B779|Boeing 777-9|11/6
+B788|Boeing 787-8|24/4
 B789|Boeing 787-9|19/8
-B78X|Boeing 787-10|24/8
-BCS1|Airbus A220-100|21/9
-BCS3|Airbus A220-300|24/10
-CRJ1|Canadair Regional Jet 100|23/11
-CRJ2|Canadair Regional Jet 200|20/9
-CRJ7|Canadair Regional Jet 700|17/10
-CRJ9|Canadair Regional Jet 900|22/8
-CRJX|Canadair Regional Jet 1000|24/12
-E135|Embraer RJ135|15/10
-E135|Embraer RJ140|20/12
-E145|Embraer RJ145|16/8
-E170|Embraer 170|23/10
-E75S/L|Embraer 175|19/12
-E190|Embraer 190|22/8
-E290|Embraer E190-E2|22/10
-E195|Embraer 195|19/12
-E295|Embraer E195-E2|25/10
-E190|Embraer Lineage 1000|21/8
-E75L|Embraer 175 (long wing)|15/9
-E75S|Embraer 175 (short wing)|17/11
-EA30|Airbus A300|22/9
-EA31|Airbus A310|16/12
-EA32|Airbus A320|23/11
-EA33|Airbus A330|24/12
-EA34|Airbus A340|24/12
-F100|Fokker 100|25/10
-F27|Fokker F27 Friendship|23/11
-F28|Fokker F28 Fellowship|20/8
-F70|Fokker 70|20/12
-IL62|Ilyushin IL62|23/12
-IL76|Ilyushin IL76|24/8
-IL86|Ilyushin IL86|24/12
-IL96|Ilyushin IL96|22/10
-MD11|McDonnell Douglas MD-11|17/12
-MD11|McDonnell Douglas MD-11F|20/8
-MD11|McDonnell Douglas MD-11C|21/9
-MD81|McDonnell Douglas MD-81|24/12
-MD82|McDonnell Douglas MD-82|23/11
-MD83|McDonnell Douglas MD-83|22/9
-MD87|McDonnell Douglas MD-87|17/11
-MD88|McDonnell Douglas MD-88|16/12
-MD90|McDonnell Douglas MD-90|18/8
-RJ1H|Avro RJ100|19/10
-RJ70|Avro RJ70|23/12
-RJ85|Avro RJ85|16/11
-T134|Tupolev Tu-134|22/9
-T144|Tupolev Tu-144|22/10
-T154|Tupolev Tu-154|24/12
-YK40|Yakovlev Yak-40|22/8
-YK42|Yakovlev Yak-42|23/9
+B78X|Boeing 787-10|14/8
+BCS1|Airbus A220-100|20/6
+BCS3|Airbus A220-300|23/6
+CRJ1|Canadair Regional Jet 100|18/6
+CRJ2|Canadair Regional Jet 200|22/4
+CRJ7|Canadair Regional Jet 700|18/4
+CRJ9|Canadair Regional Jet 900|16/6
+CRJX|Canadair Regional Jet 1000|22/6
+E135|Embraer RJ135|10/4
+E135|Embraer RJ140|18/6
+E145|Embraer RJ145|10/6
+E170|Embraer 170|17/8
+E75S/L|Embraer 175|18/4
+E190|Embraer 190|15/6
+E290|Embraer E190-E2|21/6
+E195|Embraer 195|23/8
+E295|Embraer E195-E2|24/6
+E190|Embraer Lineage 1000|18/6
+E75L|Embraer 175 (long wing)|21/8
+E75S|Embraer 175 (short wing)|11/8
+EA30|Airbus A300|20/6
+EA31|Airbus A310|23/6
+EA32|Airbus A320|19/8
+EA33|Airbus A330|15/4
+EA34|Airbus A340|22/4
+F100|Fokker 100|17/8
+F27|Fokker F27 Friendship|12/8
+F28|Fokker F28 Fellowship|12/6
+F70|Fokker 70|22/4
+IL62|Ilyushin IL62|19/4
+IL76|Ilyushin IL76|22/8
+IL86|Ilyushin IL86|21/4
+IL96|Ilyushin IL96|19/8
+MD11|McDonnell Douglas MD-11|20/6
+MD11|McDonnell Douglas MD-11F|18/8
+MD11|McDonnell Douglas MD-11C|22/6
+MD81|McDonnell Douglas MD-81|10/8
+MD82|McDonnell Douglas MD-82|15/6
+MD83|McDonnell Douglas MD-83|11/6
+MD87|McDonnell Douglas MD-87|14/4
+MD88|McDonnell Douglas MD-88|17/4
+MD90|McDonnell Douglas MD-90|24/8
+RJ1H|Avro RJ100|14/6
+RJ70|Avro RJ70|20/6
+RJ85|Avro RJ85|21/4
+T134|Tupolev Tu-134|22/6
+T144|Tupolev Tu-144|16/6
+T154|Tupolev Tu-154|19/6
+YK40|Yakovlev Yak-40|19/8
+YK42|Yakovlev Yak-42|19/8

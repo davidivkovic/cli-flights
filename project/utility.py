@@ -100,3 +100,10 @@ def flight_search_flexible(departures, search_criteria):
             candidates[:] = [departure for departure in candidates if search_criteria["departure_airport"] == departure.flight.departure_airport]
         if search_criteria["destination_airport"] != "":
             candidates[:] = [departure for departure in candidates if search_criteria["destination_airport"] == departure.flight.destination_airport]
+
+def departure_datetime(departure_date, departure_time):
+    departure_date_obj = datetime.strptime(departure_date, "%d-%m-%Y").date()
+    departure_time_obj = datetime.strptime(departure_time, "%H:%M").time()
+    departure_datetime_obj = datetime.combine(departure_date_obj, departure_time_obj)
+    return departure_datetime_obj
+

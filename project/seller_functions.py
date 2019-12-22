@@ -1,25 +1,25 @@
 from model.Ticket import Ticket
 from model.Enums import Role
-from main import users, departures, tickets, save_ticket_to_file, save_tickets_to_file, save_departures_to_file, \
-    departure_search_menu, validate_departure_id, print_ticket, datetime_input, validate_city, \
-    departure_datetime, save_customers_to_file, save_customer_to_file, print_departure_search_table, choose_seat
-import globals
+from main import save_ticket_to_file, save_tickets_to_file, save_departures_to_file, \
+    departure_search_menu, validate_departure_id, datetime_input, validate_city, \
+    departure_datetime, save_customers_to_file, save_customer_to_file, choose_seat
+
 import re
 import string
+import globals
+from globals import users, airports, airplanes, flights, departures, tickets, init, current_flight_id, current_ticket_id
 from utility import *
 from datetime import *
-
-
-# TODO: Also show checked-in tickets in unrealised tickets
+from output_handler import *
 
 # redone
 def purchase_ticket(departure, first_name, last_name, phone, email):
-    #global current_ticket_id#, current_user
-    globals.current_ticket_id += 1
-    ticket_id = "AA" + f"{globals.current_ticket_id:04d}"  # takes a number and formats it into 4 digits with leading zeroes 2 --> 0002
+    global current_ticket_id#, current_user
+    current_ticket_id += 1
+    ticket_id = "AA" + f"{current_ticket_id:04d}"  # takes a number and formats it into 4 digits with leading zeroes 2 --> 0002
 
     current_date_obj = datetime.today().date()
-    current_date_str = current_date_obj.strftime("%#d-%#m-%Y")
+    current_date_str = current_date_obj.strftime("%d-%m-%Y")
 
     registered_user = None
 
@@ -478,11 +478,11 @@ def check_in_menu():
             user = check_in()  # check-in is valid if flight hasn't departed yet and will return the user that checked in
             # else user is False - it should be None though
             # check whether there are tickets purchased for connected flights
-            if user is not False:
+            if user not in [False, None]:
                 connected_tickets = connected_flights(user)
 
                 if len(connected_tickets) > 0:
-                    while True and user is not False:
+                    while True and user not in [False, None]:
                         print("Do you want to check in for your connected flights?")
                         print("|1| Yes")
                         print("|2| No")
@@ -500,7 +500,7 @@ def check_in_menu():
                 passenger_tickets = passenger_flights(user)
 
                 if len(passenger_tickets) > 0:
-                    while True and user is not False:
+                    while True and user not in [False, None]:
                         print("Do you want to check in a passenger?")
                         print("|1| Yes")
                         print("|2| No")
@@ -529,7 +529,7 @@ def ticket_search_menu():
     validate_city(search_criteria, "destination_airport", "Please enter a destination city name. Example: London\n")
 
     departure_date = datetime_input(search_criteria, "departure_date", "Please enter a departure date\n")
-    arrival_date = datetime_input(search_criteria, "arrival_date", "Please enter an arrival date\n")
+    #arrival_date = datetime_input(search_criteria, "arrival_date", "Please enter an arrival date\n")
 
     first_name, last_name = "", ""
 
@@ -583,7 +583,7 @@ def edit_ticket(ticket_id):
         if choice == "0":
             return
 
-        if choice in ["1", "2"]:
+        elif choice in ["1", "2"]:
             if choice == "1":
                 departure_candidates = []
                 candidates = departure_search_menu("Return", "Multi")  # returns the resulsts, does not print them
@@ -674,7 +674,7 @@ def delete_ticket(ticket_id):
     # validate ticket id
     for ticket in tickets:
         if ticket_id.upper() == ticket.id:
-            print_ticket(ticket)
+            print_ticket(ticket, "Single")
             print("Confirm the deletion of this ticket?")
             print("|1| Yes")
             print("|2| No")
