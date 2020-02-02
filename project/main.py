@@ -12,6 +12,7 @@ from globals import users, airports, airplanes, flights, departures, tickets, in
 from output_handler import *
 import calendar
 import copy
+from sys import exit
 local_user = None
 customer = ""
 self_purchase = False
@@ -21,8 +22,8 @@ self_check_in = False
 def generate_departure_dates():
     global departures
 
-    start_date = datetime(2019, 12, 20)
-    end_date = datetime(2020, 1, 20)
+    start_date = datetime(2020, 1, 25)
+    end_date = datetime(2020, 2, 20)
     daysOftheWeek = ("ISO Week days start from 1", "mon", "tue", "wed", "thu", "fri", "sat", "sun")
 
     results = []
@@ -901,7 +902,7 @@ def departure_search_menu(end="", mode="Single"):  # Other argument is "Multi"
                 break
 
 
-def authenticate_user(username, password, ):
+def authenticate_user(username, password):
     for user in users:
         if user.username == username and user.password == password:
             return user

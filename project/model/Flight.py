@@ -11,6 +11,7 @@ class Flight:
         self.days = days
         self.airplane = airplane
         self.price = price
+
     def serialize(self):
         return (self.flight_number + "|" + self.departure_airport.code + "|" + self.destination_airport.code
         + "|" + self.departure_time + "|" + self.arrival_time + "|" + self.overnight + "|" + self.airline
