@@ -22,8 +22,8 @@ self_check_in = False
 def generate_departure_dates():
     global departures
 
-    start_date = datetime(2020, 1, 25)
-    end_date = datetime(2020, 2, 20)
+    start_date = datetime.today() - timedelta(days = 1)
+    end_date = datetime.today() + timedelta(days = 35)
     daysOftheWeek = ("ISO Week days start from 1", "mon", "tue", "wed", "thu", "fri", "sat", "sun")
 
     results = []

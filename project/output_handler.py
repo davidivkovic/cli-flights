@@ -1,3 +1,4 @@
+
 def print_default_menu():
     print("|2| Exit application")
     print("|3| Overview of unrealised flights")
@@ -50,25 +51,6 @@ def print_departure_search_table(results, mode = ""):
                 if(number == 1000):
                     print("Search results have been omitted. Showing first 1000 results")
                     return
-        elif mode == "Duration":
-            print("{:16}{:20}{:20}{:25}{:25}{:15}{:10}{:}".format("Departure ID", "From", "To", "Departure date and time",
-                                                             "Arrival date and time", "Duration",
-                                                             "Price", "Airline"))
-            for departure in results:
-                departure_datetime_obj = departure_datetime(departure.departure_date, departure.flight.departure_time)
-                arrival_datetime_obj = departure_datetime(departure.arrival_date, departure.flight.arrival_time)
-                duration_obj = arrival_datetime_obj - departure_datetime_obj
-                distance = int(duration_obj.total_seconds() / 60)
-                print("{:16}{:20}{:20}{:10} at {:11}{:10} at {:11}{:15}{:10}{:}".format(departure.id,
-                                                                                   departure.flight.departure_airport.city,
-                                                                                   departure.flight.destination_airport.city,
-                                                                                   departure.departure_date,
-                                                                                   departure.flight.departure_time,
-                                                                                   departure.arrival_date,
-                                                                                   departure.flight.arrival_time,
-                                                                                   str(distance) + " Minutes" ,
-                                                                                   departure.flight.price + " €",
-                                                                                   departure.flight.airline))
 
     else:
         print("No matching results found")
